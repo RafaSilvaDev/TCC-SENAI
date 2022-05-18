@@ -1,0 +1,189 @@
+/* stylelint-disable selector-max-id */
+@use "../../../node_modules/sass-rem" as rem;
+@import '../../assets/scss/typography';
+@import '../../assets/scss/layout';
+@import './parts/supergraphic.scss';
+
+$m-side-navigation--open-width: rem.convert(304px);
+
+.o-minimal-header {
+  position: fixed;
+  z-index: 1;
+  background-color: var(--background);
+  width: 100%;
+  
+
+
+  @include supergraphic-padding;
+
+  .m-side-navigation {
+    z-index: 1;
+
+    @include supergraphic-padding;
+
+    &.-opening,
+    &.-open {
+      max-width: 100%;
+    }
+  }
+
+  &__supergraphic {
+
+    @include supergraphic;
+  }
+
+  &__top {
+    height: rem.convert(48px);
+    border-bottom: 1px solid var(--neutral__enabled__fill__hovered);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .o-minimal-header__burger {
+      .a-button--integrated {
+        color: var(--integrated__enabled__front__default);
+        background-color: var(--integrated__enabled__fill__default);
+      }
+    }
+  }
+
+  
+
+  &__logo {
+    width: rem.convert(140px);
+    height: rem.convert(48px);
+    padding: rem.convert(12px 16px);
+    display: none;
+    order: 2;
+
+    #bosch-logo-text {
+      fill: #ea0016;
+
+      .-dark-mode & {
+        fill: var(--plain__enabled__front__default);
+      }
+    }
+
+    #bosch-logo-anker {
+      fill: var(--plain__enabled__front__default);
+    }
+  }
+
+  // Reset
+  &__actions {
+    margin-bottom: 0;
+    padding: 0;
+
+    li {
+      /* stylelint-disable-next-line a11y/content-property-no-static-value */
+      &::before {
+        content: none;
+      }
+
+      &::marker {
+        content: none;
+      }
+      
+      .a-button--integrated {
+        color: var(--integrated__enabled__front__default);
+
+        &:hover {
+          color: var(--major-accent__enabled__fill__default);
+          background-color: initial;
+        }
+      }
+
+      padding: 0;
+      margin: 0;
+    }
+
+    display: none;
+
+    .a-button__label {
+      white-space: nowrap;
+    }
+  }
+
+  &__title {
+    flex: 0 1 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    @include size-m;
+
+    font-weight: bold;
+  }
+}
+
+@include tablet-and-up {
+  .o-minimal-header {
+    &__actions {
+      display: flex;
+      margin-right: rem.convert(16px);
+      margin-left: rem.convert(16px);
+    }
+
+    &__falafel {
+      display: none;
+    }
+
+    &__logo {
+      display: block;
+    }
+
+    &__title {
+
+      @include size-l;
+    }
+
+    .-opening,
+    .-open {
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      + * + .o-minimal-header__top {
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        .o-minimal-header__actions {
+          display: none;
+        }
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        .o-minimal-header__falafel {
+          display: block;
+          order: 1;
+          margin-right: rem.convert(16px);
+        }
+      }
+    }
+  }
+}
+
+@include desktop-and-up {
+  .o-minimal-header {
+    &__title {
+      margin-left: rem.convert(16px);
+    }
+
+    &__top {
+      transition: $default-transition-timing padding $default-transition-easing;
+    }
+
+    .-opening,
+    .-open {
+      /* stylelint-disable-next-line selector-max-compound-selectors */
+      + * + .o-minimal-header__top {
+        // the burger (48px) should still be hidden below the side navigation
+        padding-left: $m-side-navigation--open-width - rem.convert(48px);
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        .o-minimal-header__actions {
+          display: flex;
+        }
+
+        /* stylelint-disable-next-line selector-max-compound-selectors */
+        .o-minimal-header__falafel {
+          display: none;
+        }
+      }
+    }
+  }
+}

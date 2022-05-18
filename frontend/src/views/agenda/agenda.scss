@@ -1,0 +1,162 @@
+.agenda {
+
+    .calendar-container {
+        display: grid;
+
+        grid-template-areas: 
+            "header"
+            "class"
+        ;
+
+        .header {
+            grid-area: header;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .day {
+                span {
+                    font-size: 1.1rem;
+
+                    &:first-child {
+                        margin-right: .5rem;
+                    }
+                }
+            }
+
+            .buttons-adv {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            input[type="date"]::-webkit-inner-spin-button,
+            input[type="date"]::-webkit-calendar-picker-indicator {
+                /* display: none;
+                -webkit-appearance: none; */
+
+                background: url("./../../assets/calendar_icon.png") no-repeat;
+                margin: 0;
+                margin-left: .725rem;
+                margin-top: 1.45rem;
+                cursor: pointer;
+                color: var(--minor-accent__enabled__front__default);;
+                padding: 14px 14px;
+                font-size: 1.3rem;
+                border-radius: 0;
+                
+                
+            }
+
+            input[type="date"]::-webkit-datetime-edit {
+                display:none;
+            }
+
+            input[type="date" i] {
+                border: 1px solid var(--minor-accent__enabled__front__default);
+                outline: none;
+                max-width: 50px;
+                max-height: 50px;
+                background: none;
+
+                &:hover {
+                    background-color: var(--minor-accent__enabled__fill__hovered);
+                    color: var(--minor-accent__enabled__front__hovered);
+                    border-color: var(--minor-accent__enabled__front__hovered);
+                }
+
+                &:active {
+                    background-color: var(--minor-accent__enabled__fill__pressed);
+                    color: var(--minor-accent__enabled__front__pressed);
+                    border-color: var(--minor-accent__enabled__front__pressed);
+                }
+            }
+
+            .calendar-dateinput {
+                display: flex;
+            }
+
+            
+            
+        }
+
+        .classes {
+            grid-area: class;
+            display: grid;
+
+            grid-template-columns: 1fr;
+
+            .item {
+                display: grid;
+                grid-template-columns: 150px 1fr;
+                background: rgba(255, 255, 255, 0.85);
+                min-height: 60px;
+                padding: 5px 0;
+                margin: 0;
+
+                &:first-child { background: none; padding: 0; min-height: 40px; }
+                &:nth-child(2n) { background-color: #b7b7b7be; }
+
+                .classeName {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    padding: 1rem;
+                    color: #000;
+                }
+            }
+
+
+            .hours {
+                list-style: none;
+                display: grid;
+            
+                grid-template-columns: repeat(10, 1fr);
+
+                .h-time {
+                    min-width: 30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 0;
+
+                    background: #307eb56b;
+
+                    &:nth-child(2n) { background-color: #79bcd342; }
+                }
+            
+            }
+
+            .main {
+                display: grid;
+        
+                grid-template-columns: repeat(60, 1fr);
+                grid-template-rows: 1fr;
+
+                width: 100%;
+                min-height: 100%;
+        
+                .event-card {
+                    padding: .5rem;
+                    background-color: aqua;
+                }
+        
+                white-space: nowrap;
+                // background: repeating-linear-gradient(
+                //     to right,
+                //     transparent 0%,
+                //     transparent 9.9%,
+                //     gray 10%
+                // );
+        
+                
+            }
+        }
+
+        
+    }
+
+}
+
+
+ 

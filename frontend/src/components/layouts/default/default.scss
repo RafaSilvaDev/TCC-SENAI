@@ -1,0 +1,30 @@
+@use "../../../../node_modules/sass-rem/" as rem;
+@import "../../../assets/scss/layout";
+
+
+$m-side-navigation--open-width: rem.convert(304px);
+
+.background-wrapper {
+    background: var(--plain__enabled__fill__hovered);
+
+    min-height: 100vh;
+    transition: $default-transition-timing padding $default-transition-easing;
+
+    padding-top: calc(54px + rem.convert(64px));
+    padding-bottom: calc(54px + rem.convert(64px));
+
+    .background-internal {
+        padding: 0 1rem;
+    }
+}
+
+
+@include desktop-and-up {
+    .background-wrapper {
+        padding-left: rem.convert(48px);
+
+     &.-side-open {
+         padding-left: $m-side-navigation--open-width;
+     }
+    } 
+ }

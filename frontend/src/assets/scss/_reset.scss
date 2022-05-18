@@ -1,0 +1,36 @@
+@use "./../../../node_modules/sass-rem" as rem;
+
+@mixin background-dimmed {
+  /// because we can use CSS custom properties here,
+  /// we need to implement here the hex value with alpha channel directly
+  background-color: #71767c40;
+  backdrop-filter: blur(rem.convert(4px));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+html,
+body {
+  font-family: boschsans, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/// We need the extra selectors, because the user agent stylesheet overwrites the normal body font-family
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  border-radius: 0;
+}
+

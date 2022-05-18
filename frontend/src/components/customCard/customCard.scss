@@ -1,0 +1,162 @@
+@use "../../../node_modules/sass-rem" as rem;
+@import "./../../assets/scss/layout";
+
+
+.pdf-viewer {
+    height: 96vh;
+    width: 96vw;
+    display: flex;
+    flex-direction: column;
+
+    embed {
+        height: inherit;
+    }
+
+    .a-button__icon {
+        position: absolute;
+        background: var(--minor-accent__enabled__front__default);
+        padding: 1rem;
+        cursor: pointer;
+        color: #fff;
+
+        &:hover {
+            color: var(--plain__enabled__fill__hovered);
+            background: var(--minor-accent__enabled__front__hovered);
+        }
+        &:active {
+            color: var(--plain__enabled__fill__pressed);
+            background: var(--minor-accent__enabled__front__pressed);
+        }
+    }
+}
+
+.custom-card {
+    background-color: var(--background);
+    
+    &.-popUp {
+        max-width: 600px;
+        min-height: min-content;
+    }
+
+    .content-card {
+        padding: rem.convert(32px);
+
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 2rem;
+
+            .header__right {
+
+                display: flex;
+                align-items: center;
+                gap: rem.convert(32px);
+                
+
+                .dot-status {
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    position: relative;
+                      
+                    
+                    &.-on {
+                        background-color: var(--minor-highlight-green__enabled__front__default);
+
+                        &:after {
+                            content: "";
+                            position:absolute;
+                            
+                            /* position tooltip correctly */
+                            left:38%;
+                            margin-left:-5px;
+                            
+                            /* vertically center */
+                            top:50%;
+                            transform:translateY(-10%);
+                            
+                            /* the arrow */
+                            border:10px solid #000;
+                            border-color: transparent transparent black transparent;
+                            
+                            display:none;
+                        }
+
+                        &:before {
+                            content: attr(data-text);
+                            position:absolute;
+      
+                            /* vertically center */
+                            top:125%;
+                            transform:translateY(-0%);
+                            
+                            /* move to right */
+                            right: 0%;
+                             /* and add a small left margin */
+                            
+                            /* basic styles */
+                            width:200px;
+                            padding:10px;
+                            background: #000;
+                            color: #fff;
+                            text-align:center;
+    
+                            display:none; /* hide by default */
+                        }
+
+                        &:hover:before,  &:hover:after{
+                            display: block;
+                        }
+                    }
+
+                    &.-off {
+                        background-color: var(--major-signal-error__enabled__fill__hovered);
+                    }
+                }
+
+                .a-button__icon {
+                    padding: 0;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: var(--major-accent__enabled__fill__default);
+                        background-color: initial;
+                    }
+
+                    &.boschicon-bosch-ic-close:hover {
+                        color: var(--major-signal-error__enabled__fill__hovered);
+                    }
+                
+                }
+            }
+        }
+
+
+        .card-body {
+
+            .text {
+                .title {
+                    margin-bottom: 0.5rem;
+                }
+                p {
+                    text-align: justify;
+                }
+            }
+        }
+
+        .content-body {
+            &__front,
+            &__back {
+                display: none;
+
+                &.-face { display: initial; }
+            }
+        }
+
+    }
+
+
+}
+

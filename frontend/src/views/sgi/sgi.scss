@@ -1,0 +1,129 @@
+@use "../../../../node_modules/sass-rem" as rem;
+@import "./../../../assets/scss/layout";
+
+
+.sgi {
+
+    .screen-grid {
+        
+
+    
+        .header {
+            grid-area: header;
+            padding: rem.convert(32px);
+            max-height: rem.convert(80px);
+            background-color: var(--background);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+
+            &__right {
+                display: flex;
+                gap: rem.convert(32px);
+
+
+                &__search {
+                    display: flex;
+                    position: relative;
+
+                    .m-search-form {
+                        opacity: 0;
+                        width: 0;
+                        display: none;
+                        transition: width .25s cubic-bezier(.38,.04,.35,.96),opacity .25s cubic-bezier(.38,.04,.35,.96);
+                        margin-bottom: 0;
+                        position: absolute;
+                        z-index: -1;
+                        right: 0;
+                    }
+
+                    &.-open {
+
+                        .m-search-form {
+                            opacity: 1;
+                            z-index: 0;
+                            display: inline-block;
+                        }
+
+                        .a-button--integrated {
+                            display: none;
+                        }
+                    }
+
+                    .a-button--integrated {
+                        color: var(--integrated__enabled__front__default);
+
+                        &:hover {
+                            color: var(--major-accent__enabled__fill__default);
+                            background-color: initial;
+                        }
+                    }
+                }
+
+            }
+            
+        }
+
+        
+        .cards-grid {
+            display: grid;
+            margin-top: rem.convert(32px);
+            grid-gap: rem.convert(32px);
+        }
+
+        .btn-more {
+            margin-top: rem.convert(32px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+            
+        }
+
+        .activity-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: rem.convert(16px);
+        }
+
+        
+    
+    }
+    
+
+}
+
+
+
+@include mobile-and-down {
+    .sgi {
+        .screen-grid {
+            grid-template-columns: 1fr;
+
+        }
+
+        .a-button--integrated {
+            .a-button__label {
+                display: none;
+            }
+        }
+    }
+}
+
+
+
+@include tablet-and-up {
+    .sgi {
+        .screen-grid {
+
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+    }
+}

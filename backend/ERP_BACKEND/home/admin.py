@@ -1,0 +1,69 @@
+from django.contrib import admin
+from .models import *
+from .forms import userForm
+@admin.register(Plant)
+class PlantAdmin(admin.ModelAdmin):
+    list_display = ('id', 'plant', 'plantAbrv')
+
+@admin.register(Area)
+class AreaAdmin(admin.ModelAdmin):
+    list_display = ('id', 'area', 'areaAbrv')
+
+@admin.register(Team)
+class TeamAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'fk_area','fk_plant', 'qttMates' )
+
+
+
+@admin.register(ProfileService)
+class ProfileServiceAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(AccessLevel)
+class AccessLevelAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', )
+    filter_horizontal = ('profiles',)
+
+@admin.register(SimpleUser)
+class SimpleUserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'username', 'first_name', 'email')
+    filter_horizontal = ('groups','fk_team','user_permissions')
+    # list_display = ('id', )
+    # form = userForm
+    # class Media:
+    #     js = ("js/selectColab.js",)
+
+@admin.register(System)
+class SystemAdmin(admin.ModelAdmin):
+    list_display = ('id','name')
+
+@admin.register(SSMType)
+class SSMTypeAdmin(admin.ModelAdmin):
+    list_display = ('id','type')
+
+
+@admin.register(DDS)
+class SSMAdmin(admin.ModelAdmin):
+    list_display = ('id','title')
+
+@admin.register(PatrolQuest)
+class PatrolQuestAdmin(admin.ModelAdmin):
+    list_display = ('id', 'question')
+
+@admin.register(PatrolWeek)
+class PatrolWeekAdmin(admin.ModelAdmin):
+    list_display = ('id', 'initialDate', 'fk_patrol')
+
+@admin.register(PossibleAnswer)
+class PossibleAnswersAdmin(admin.ModelAdmin):
+    list_display = ('id','answer')
+
+@admin.register(PatrolAnswer)
+class PatrolAnswerAdmin(admin.ModelAdmin):
+    list_display = ('id', 'answerDay')
+
+@admin.register(SSM)
+class SSMAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title')
+
+
