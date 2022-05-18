@@ -10,7 +10,7 @@ import { checkLogin } from '@/router/RouterBlock'
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/sgi/dds'
   },
   {
     path: '/login',

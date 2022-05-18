@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import *
 from .forms import userForm
+
 @admin.register(Plant)
 class PlantAdmin(admin.ModelAdmin):
     list_display = ('id', 'plant', 'plantAbrv')
@@ -13,6 +14,19 @@ class AreaAdmin(admin.ModelAdmin):
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'fk_area','fk_plant', 'qttMates' )
 
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'description', 'date')
+
+@admin.register(TeamEvent)
+class TeamEventAdmin(admin.ModelAdmin):
+    list_display = ('id', 'fk_team', 'fk_event')
+
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('id', 'localName', 'businessPoint')
 
 
 @admin.register(ProfileService)

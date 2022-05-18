@@ -89,6 +89,19 @@ urlpatterns = [
     #  FILTERED PATROL ANSWER BY PRIMARY KEY
     path('patrolanswers/<int:id>', PatrolAnswerApiView.as_view(), name="patrolanswersFilter"),
 
+    path('locations/', LocationApiView.as_view(), name="locations"),
+    # FILTERED LOCATION BY PRIMARY KEY
+    path('locations/<int:id>', LocationApiView.as_view(), name="locationsFilter"),
+
+    #  ALL EVENTS IN DB
+    path('events/', EventApiView.as_view(), name="events"),
+    #  FILTERED EVENTS BY PRIMARY KEY
+    path('events/<int:id>', EventApiView.as_view(), name="eventsFilter"),
+    
+    # ALL TEAM EVENTS IN DB
+    path('teamevents/', TeamEventApiView.as_view(), name="teamEvents"),
+    # FILTERED TEAM EVENT BY PRIMARY KEY
+    path('teamevents/<int:id>', TeamEventApiView.as_view(), name="teamEventsFilter"),
     # #  ALL PROJECTS IN DB
     # path('projects/', ProjectApiView.as_view(), name="projects"),
     # #  FILTERED PROJECT BY PRIMARY KEY

@@ -113,8 +113,25 @@ export default {
       ]
     }
   },
-  mounted: function() {
+  mounted: async function() {
     this.setCurrentDate();
+
+    await axios
+      .get(this.apiURL+'/filter/ssm/?search=ama')
+      .then(response => {
+        let data = response.data;
+        this.results = data.results;
+        this.next = data.next;
+        this.previous = data.previous;
+        this.count = data.count;
+
+        this.dataReady = true;
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    
   },
   methods: {
     setColumnGrid: function(time) {
