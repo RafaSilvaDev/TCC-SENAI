@@ -57,12 +57,9 @@ class Location(models.Model):
     localName = models.CharField(max_length=80, blank=False, null=False, default='')
     businessPoint = models.CharField(max_length=30, blank=False, null=True, default='')
 
-<<<<<<< HEAD
     def __str__(self) -> str:
         return self.localName
 
-=======
->>>>>>> 823bf8db3fd69f9138c6cf24392850a47fa793b2
 
 class Event(models.Model):
     name = models.CharField(max_length=40, null=False, blank=False, default='')
@@ -70,11 +67,7 @@ class Event(models.Model):
     description = models.CharField(max_length=100, null=True, blank=True, default='')
     date = models.DateField(blank=False, null=False, auto_now_add=False, default='')
     startTime = models.TimeField(blank=False, null=False, auto_now_add=False, default='')
-<<<<<<< HEAD
     endTime = models.TimeField(blank=False, null=False, auto_now_add=False, default='')
-=======
-    duration = models.IntegerField(blank=False, null=False, default='')
->>>>>>> 823bf8db3fd69f9138c6cf24392850a47fa793b2
     location = models.ForeignKey(Location, blank=False, null=False, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
@@ -82,13 +75,8 @@ class Event(models.Model):
     # location
 
 class TeamEvent(models.Model):
-<<<<<<< HEAD
     fk_team = models.ForeignKey(Team, blank= False, null=False, on_delete=models.CASCADE, default='')
     fk_event = models.ForeignKey(Event, blank=False, null=False, on_delete=models.CASCADE, default='')
-=======
-    fk_team = models.ForeignKey(Team, blank= False, null=False, on_delete=models.CASCADE)
-    fk_event = models.ForeignKey(Event, blank=False, null=False, on_delete=models.CASCADE)
->>>>>>> 823bf8db3fd69f9138c6cf24392850a47fa793b2
 
     
 
@@ -110,7 +98,7 @@ class AccessLevel(models.Model):
 
 class SimpleUser(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=40, blank=False, null=False, default='', help_text='Insert The User Name', verbose_name='Name:' )
+    first_name = models.CharField(max_length=40, blank=False, null=False, default='', help_text='Insert The User Name', verbose_name='Name:' )
     last_name = models.CharField(max_length=40, blank=False, null=False, default='', help_text='Insert The User Last Name', verbose_name='Last Name:' )
     username = models.CharField(max_length=8,blank=False, null=False, help_text='Insert The Colaborator USERID', verbose_name='Intern User',unique=True)
     email = models.EmailField(max_length=80, help_text='Insert The Colaborator Email', default='', verbose_name='Email', blank=False, null=False)
