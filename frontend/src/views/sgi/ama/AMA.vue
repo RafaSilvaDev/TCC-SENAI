@@ -69,7 +69,7 @@ export default {
   },
   mounted: async function() {
     await axios
-      .get('https://swapi.dev/api/planets')
+      .get(this.apiURL+'/filter/ssm/?search=ama')
       .then(response => {
         let data = response.data;
         this.results = data.results;
