@@ -10,15 +10,15 @@
 
           <h3>Login</h3>
 
-          <form submit.prevent="">
+          <form v-on:submit.prevent="loginUser">
 
             <div class="a-text-field">
               <label>User</label>
-              <input type="text" name="user">
+              <input v-model="login.username" type="text" name="user">
             </div>
             <div class="a-text-field">
               <label>Password</label>
-              <input :type="type" name="pwd">
+              <input v-model="login.password" :type="type" name="pwd">
               <button type="button" class="a-text-field__icon-password" @click="showPwd=!showPwd">
                 <Icon iconName="watch-on" />
               </button>
@@ -38,12 +38,17 @@ import Logo from '@/components/minimalHeader/parts/logo/Logo.vue';
 import Icon from '@/components/icon/Icon.vue';
 import TextField from '@/components/textField/TextField.vue';
 import Button from "@/components/button/Button.vue";
-
+import {setLogin} from '@/router/RouterBlock'
 
 export default {
+  
   data: function() {
     return {
         showPwd: false,
+        login:{
+          username: 'admin',
+          password: 'admin'
+        }
     }
   },
   computed: {
@@ -56,7 +61,12 @@ export default {
     TextField,
     Icon,
     Button
-  }
+  },
+   methods:{
+    loginUser: function(){
+      setLogin(this.login)
+    }
+  },
 };
 </script>
 

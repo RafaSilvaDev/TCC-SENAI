@@ -1,0 +1,283 @@
+@use "../../../node_modules/sass-rem" as rem;
+@import "@/assets/scss/_variables.scss";
+
+$m-side-navigation--open-width: rem.convert(304px);
+
+html,
+body {
+  scroll-behavior: smooth;
+
+  .app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: var(--plain__enabled__fill__hovered);
+
+    .banner {
+      background-image: url("~@/assets/img/ets.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      box-shadow: inset 0 0 0 2000px rgba($color: #000, $alpha: 0.4);
+      background-position: center;
+      width: 100%;
+      height: 65vh;
+      position: relative;
+      z-index: 0;
+
+      .text-banner {
+        position: absolute;
+        color: #fff;
+        font-size: 50px;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        text-align: center;
+
+        #button-about {
+          width: 100px;
+          height: 35px;
+          text-decoration: none;
+          background-color: $button-color-m;
+          border: none;
+          color: #fff;
+          font-size: 20px;
+          padding: 10px;
+        }
+      }
+
+      .text-banner p {
+        font-size: 30px;
+      }
+    }
+    .cards {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+
+      $color-collection: rgba(252, 103, 103), rgba(94, 87, 212),
+        rgba(63, 221, 255), rgba(149, 225, 115);
+      $teste: ("red", "purple", "blue", "green");
+      $index: 0;
+
+      @each $color in $color-collection {
+        .card-content.#{unquote(nth($teste, $index+1))} {
+          width: 25%;
+          height: 335px;
+          background-color: var(--background);
+          position: relative;
+          // border-radius: 30px 30px 0 0;
+          margin: 0.2rem;
+          margin-top: 0;
+          margin-bottom: 0;
+
+          .card-icon {
+            width: 100px;
+            height: 100px;
+            background-color: $color;
+            border-radius: 100%;
+            position: absolute;
+            top: 0%;
+            left: 50%;
+            margin: -50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+          }
+
+          .card-text {
+            text-align: center;
+            margin-top: 50px;
+            padding: 1rem;
+          }
+          
+        }
+
+        $index: $index + 1;
+      }
+    }
+
+    .history {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      .content-history {
+        width: auto;
+        height: auto;
+        background-color: var(--background);
+        margin: 0 3rem 0 3rem;
+        padding: 1rem 10px 1rem 10px;
+
+        .title-history h1:before,
+        h1:after {
+          content: "\00a0\00a0\00a0\00a0";
+          text-decoration: line-through;
+          margin: auto 0.5em;
+        }
+
+        .text-history {
+          margin: 8rem;
+          margin-top: 2rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 405px) {
+  html,
+  body {
+    .app {
+      .cards {
+
+        $color-collection: rgba(252, 103, 103), rgba(94, 87, 212),
+          rgba(63, 221, 255), rgba(149, 225, 115);
+        $teste: ("red", "purple", "blue", "green");
+        $index: 0;
+
+        @each $color in $color-collection {
+          .card-content.#{unquote(nth($teste, $index+1))} {
+            
+            .card-icon {
+              
+            }
+
+            .card-text {
+              
+              .card-title{
+    
+              }
+
+              .card-box{
+                font-size: 0.8rem;
+              }
+            
+            }
+          }
+
+          $index: $index + 1;
+        }
+      }
+
+      .history {
+        
+
+        .content-history {
+           margin: 0;
+
+          .title-history h1{
+            font-size: 20px !important;
+          }
+
+          .text-history p{
+            font-size: 1rem !important;
+          
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 777px) {
+  html,
+  body {
+    .app {
+      .cards {
+        
+
+        $color-collection: rgba(252, 103, 103), rgba(94, 87, 212),
+          rgba(63, 221, 255), rgba(149, 225, 115);
+        $teste: ("red", "purple", "blue", "green");
+        $index: 0;
+
+        @each $color in $color-collection {
+          .card-content.#{unquote(nth($teste, $index+1))} {
+           
+
+            .card-icon {
+              
+            }
+
+            .card-text {
+              
+              
+            }
+          }
+
+          $index: $index + 1;
+        }
+      }
+
+      .history {
+        
+
+        .content-history {
+
+          .title-history h1 {
+            font-size: 30px;
+          }
+
+          .text-history {
+            font-size: 20px;
+            margin: 2rem;
+            margin-top: 2rem;
+          
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1025px) {
+  html,
+  body {
+    .app {
+      .cards {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        $color-collection: rgba(252, 103, 103), rgba(94, 87, 212),
+          rgba(63, 221, 255), rgba(149, 225, 115);
+        $teste: ("red", "purple", "blue", "green");
+        $index: 0;
+
+        @each $color in $color-collection {
+          .card-content.#{unquote(nth($teste, $index+1))} {
+            width: 75%;
+            margin: 15px 0.2rem 5px 0.2rem;
+
+            .card-icon {
+              
+            }
+
+            .card-text {
+
+              .card-title{
+                
+              }
+            
+            }
+          }
+
+          $index: $index + 1;
+        }
+      }
+    }
+  }
+}

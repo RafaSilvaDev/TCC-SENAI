@@ -4,6 +4,8 @@ import AMA from '../views/sgi/ama/AMA.vue';
 import BAST from '../views/sgi/bast/BAST.vue';
 import Agenda from '../views/agenda/Agenda.vue';
 import Login from '../views/login/Login.vue';
+import Home from '../views/home/Home.vue';
+import { checkLogin } from '@/router/RouterBlock'
 
 const routes = [
   {
@@ -35,6 +37,11 @@ const routes = [
     name: 'Agenda',
     component: Agenda
   },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
+  },
   
   
 ]
@@ -43,5 +50,16 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.afterEach((to, from) => {
+  if(to.name === undefined){
+    router.push("home")
+  }
+
+  if(to.name !== "Login"){    
+    checkLogin()
+  }
+  
+});
 
 export default router

@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     sideNavigationOpen: false,
-    darkMode: false,
+    darkMode: false
   },
   mutations: {
     changeStateSideNavigation: (state) => {
@@ -11,11 +11,14 @@ export default createStore({
     },
     changeStateThemeMode: (state) => {
       state.darkMode = !state.darkMode;
+      console.log(state.darkMode)
+      localStorage.theme = !localStorage.theme;
     }
   },
   actions: {
    
   },
   modules: {
+
   },
 })

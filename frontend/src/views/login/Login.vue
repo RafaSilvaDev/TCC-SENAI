@@ -8,7 +8,7 @@
 export default {
     setup: function() {
         const layout = 'login-layout';
-
+        
         return {
         layout
         };
