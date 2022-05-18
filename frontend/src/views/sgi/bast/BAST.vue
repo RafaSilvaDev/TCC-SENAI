@@ -20,7 +20,7 @@
 
         <div v-if="dataReady" class="conditional-render">
           <div class="cards-grid">
-            <CustomCard  v-for="x in results" :key="x.name" :title="x.title" :id="x.episode_id" :havePopUp="true" dateRead="no" type="pdf"/>
+            <CustomCard  v-for="x in results" :key="x.name" :title="x.title" :id="x.id" :havePopUp="true" dateRead="no" type="pdf" :pdfPath="x.file"/>
           </div>
           
           <div v-if="next" class="btn-more">
@@ -69,13 +69,14 @@ export default {
   },
   mounted: async function() {
     await axios
-      .get('https://swapi.dev/api/films')
+      .get(this.apiURL+'/filter/ssm/?search=bast')
       .then(response => {
         let data = response.data;
         this.results = data.results;
         this.next = data.next;
         this.previous = data.previous;
         this.count = data.count;
+        console.log(data)
 
         this.dataReady = true;
         

@@ -8,7 +8,7 @@ import Login from '../views/login/Login.vue';
 const routes = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/sgi/dds'
   },
   {
     path: '/login',

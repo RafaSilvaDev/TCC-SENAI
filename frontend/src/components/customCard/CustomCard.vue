@@ -17,14 +17,14 @@
                         <div :class="['content-body__front', [{'-face': front}]]">
                             <div class="text">
                                 <h5 class="title">{{title}}</h5>
-                                <p>Lorem ipsum consectetur adipiscing elit. Phasellus eu dictum diam, eu hendrerit est. Etiam venenatis hendrerit nunc, eget accumsan libero congue quis. Nulla facilisi. Maecenas nec tellus tellus. Donec luctus in lacus ut vehicula. Quisque aliquam hendrerit condimentum. Aliquam placerat risus ipsum, vitae porttitor turpis ornare id. Sed arcu lectus, iaculis at purus id, posuere varius eros.</p>
+                                <p>{{textFront}}</p>
                             </div>
                             <!-- <img v-if="data.img" :src="data.img" alt=""> -->
                         </div>
                         <div v-if="type!='pdf'" :class="['content-body__back', [{'-face': !front}]]">
                             <div class="text">
-                                <h5 class="title">BACK</h5>
-                                <p>Etiam venenatis hendrerit nunc, eget accumsan libero congue quis. Nulla facilisi.Quisque aliquam hendrerit condimentum. Sed arcu lectus, iaculis at purus id, posuere varius eros.</p>
+                                <h5 class="title">{{title}}</h5>
+                                <p>{{textBack}}</p>
                             </div>
                             <!-- <img v-if="data.img" :src="data.img" alt=""> -->
                         </div>
@@ -50,14 +50,14 @@
                             <div :class="['content-body__front', [{'-face': frontPopUp}]]">
                                 <div class="text">
                                     <h5 class="title">{{title}}</h5>
-                                    <p>Lorem ipsum consectetur adipiscing elit. Phasellus eu dictum diam, eu hendrerit est. Etiam venenatis hendrerit nunc, eget accumsan libero congue quis. Nulla facilisi. Maecenas nec tellus tellus. Donec luctus in lacus ut vehicula. Quisque aliquam hendrerit condimentum. Aliquam placerat risus ipsum, vitae porttitor turpis ornare id. Sed arcu lectus, iaculis at purus id, posuere varius eros.</p>
+                                    <p>{{textFront}}</p>
                                 </div>
 
                             </div>
                             <div :class="['content-body__back', [{'-face': !frontPopUp}]]">
                                 <div class="text">
-                                    <h5 class="title">BACK</h5>
-                                    <p>Etiam venenatis hendrerit nunc, eget accumsan libero congue quis. Nulla facilisi.Quisque aliquam hendrerit condimentum. Sed arcu lectus, iaculis at purus id, posuere varius eros.</p>
+                                    <h5 class="title">{{title}}</h5>
+                                    <p>{{textBack}}</p>
                                 </div>
 
                             </div>       
@@ -67,7 +67,7 @@
             </div>
             <div v-else class="pdf-viewer">
                 <Icon iconName="close" className="a-button__icon" @click="showPopUp = false"/>
-                <embed v-if="showPopUp" :src="urlPdf.concat('#toolbar=0&scrollbars=0&navpanes=0&zoom=150&scrollbar=0')" type="application/pdf">
+                <embed v-if="showPopUp" :src="'http://127.0.0.1:8000/'+pdfPath.concat('#toolbar=0&scrollbars=0&navpanes=0&zoom=100&scrollbar=0')" type="application/pdf">
             </div>
         </Box>
     </div>
@@ -83,10 +83,9 @@ export default {
             front: true,
             frontPopUp: true,
             showPopUp: false,
-            urlPdf: 'http://www.defensoria.pi.gov.br/gestor/public/uploader/documentos/4/84a0bcaa34768dfdbc090b3caab1b660.pdf'
         }
     },
-    props: [ 'id', 'title', 'textFront', 'textBack', 'img', 'dateRead', 'havePopUp', 'type' ],
+    props: [ 'id', 'title', 'textFront', 'textBack', 'img', 'dateRead', 'havePopUp', 'type', 'pdfPath' ],
     components: {
         Icon,
         Box,

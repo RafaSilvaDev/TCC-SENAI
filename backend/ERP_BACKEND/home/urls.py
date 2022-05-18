@@ -11,7 +11,8 @@ urlpatterns = [
     path('pdf/', fetchpdf.as_view()),
     # path('media/', include('media')),
     path('search/', search_view.as_view(), name='search'),
-
+    path('filter/ssm/', search_view_ssm.as_view(), name='search'),
+    
 
     #  ALL PLANTS IN DB
     path('plants/', PlantApiView.as_view(), name="plants"),
@@ -27,21 +28,6 @@ urlpatterns = [
     path('teams/', TeamApiView.as_view(), name="teams"),
     #  FILTERED TEAM BY PRIMARY KEY
     path('teams/<int:id>', TeamApiView.as_view(), name="teamsFilter"),
-
-    # ALL LOCATIONS IN DB
-    path('locations/', LocationApiView.as_view(), name="locations"),
-    # FILTERED LOCATION BY PRIMARY KEY
-    path('locations/<int:id>', LocationApiView.as_view(), name="locationsFilter"),
-
-    #  ALL EVENTS IN DB
-    path('events/', EventApiView.as_view(), name="events"),
-    #  FILTERED EVENTS BY PRIMARY KEY
-    path('events/<int:id>', EventApiView.as_view(), name="eventsFilter"),
-    
-    # ALL TEAM EVENTS IN DB
-    path('teamevents/', TeamEventApiView.as_view(), name="teamEvents"),
-    # FILTERED TEAM EVENT BY PRIMARY KEY
-    path('teamevents/<int:id>', TeamEventApiView.as_view(), name="teamEventsFilter"),
 
     #  ALL PROFILE SERVICES IN DB
     path('profileservices/', ProfileServiceApiView.as_view(), name="profileservices"),
@@ -103,20 +89,20 @@ urlpatterns = [
     #  FILTERED PATROL ANSWER BY PRIMARY KEY
     path('patrolanswers/<int:id>', PatrolAnswerApiView.as_view(), name="patrolanswersFilter"),
 
-    #  ALL PROJECTS IN DB
-    path('projects/', ProjectApiView.as_view(), name="projects"),
-    #  FILTERED PROJECT BY PRIMARY KEY
-    path('projects/<int:id>', ProjectApiView.as_view(), name="projectsFilter"),
+    # #  ALL PROJECTS IN DB
+    # path('projects/', ProjectApiView.as_view(), name="projects"),
+    # #  FILTERED PROJECT BY PRIMARY KEY
+    # path('projects/<int:id>', ProjectApiView.as_view(), name="projectsFilter"),
 
-    #  ALL SCHEDULE LOCATIONS IN DB
-    path('schedulelocations/', LocationScheduleApiView.as_view(), name="schedulelocations"),
-    #  FILTERED SCHEDULE LOCATION BY PRIMARY KEY
-    path('schedulelocations/<int:id>', LocationScheduleApiView.as_view(), name="schedulelocationsFilter"),
+    # #  ALL SCHEDULE LOCATIONS IN DB
+    # path('schedulelocations/', LocationScheduleApiView.as_view(), name="schedulelocations"),
+    # #  FILTERED SCHEDULE LOCATION BY PRIMARY KEY
+    # path('schedulelocations/<int:id>', LocationScheduleApiView.as_view(), name="schedulelocationsFilter"),
 
-    #  ALL SCHEDULE EVENTS IN DB
-    path('scheduleevents/', ScheduleEventApiView.as_view(), name="scheduleevents"),
-    #  FILTERED SCHEDULE EVENT BY PRIMARY KEY
-    path('scheduleevents/<int:id>', ScheduleEventApiView.as_view(), name="scheduleeventsFilter"),
+    # #  ALL SCHEDULE EVENTS IN DB
+    # path('scheduleevents/', ScheduleEventApiView.as_view(), name="scheduleevents"),
+    # #  FILTERED SCHEDULE EVENT BY PRIMARY KEY
+    # path('scheduleevents/<int:id>', ScheduleEventApiView.as_view(), name="scheduleeventsFilter"),
 
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

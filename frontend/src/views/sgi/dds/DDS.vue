@@ -24,9 +24,11 @@
             -->
             <CustomCard
               v-for="x in results"
-              :key="x.name"
-              :title="x.name"
-              :id="x.birth_year"
+              :key="x.title"
+              :id="x.id"
+              :title="x.title"
+              :textFront="x.frontText"
+              :textBack="x.backText"
               :havePopUp="true"
               dateRead="2002/03/04"
             />
@@ -89,9 +91,7 @@
                       <div class="text">
                         <h5 class="title">BACK</h5>
                         <p>
-                          Etiam venenatis hendrerit nunc, eget accumsan libero congue
-                          quis. Nulla facilisi.Quisque aliquam hendrerit condimentum.
-                          Sed arcu lectus, iaculis at purus id, posuere varius eros.
+                          {{}}
                         </p>
                       </div>
                     </div>
@@ -150,7 +150,7 @@ export default {
   mounted: async function () {
     await axios
       // .get(this.defaultURL + "dds/")
-      .get("https://swapi.dev/api/people")
+      .get(this.apiURL+"/dds/")
       .then((response) => {
         let data = response.data;
         this.results = data.results;
@@ -158,6 +158,7 @@ export default {
         this.previous = data.previous;
         this.count = data.count;
 
+        console.log(this.results)
         this.dataReady = true;
       })
       .catch((err) => {

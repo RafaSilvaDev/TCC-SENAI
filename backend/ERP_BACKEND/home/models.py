@@ -57,18 +57,27 @@ class Location(models.Model):
     localName = models.CharField(max_length=80, blank=False, null=False, default='')
     businessPoint = models.CharField(max_length=30, blank=False, null=True, default='')
 
+    def __str__(self) -> str:
+        return self.localName
+
+
 class Event(models.Model):
     name = models.CharField(max_length=40, null=False, blank=False, default='')
+    event_responsible = models.CharField(max_length=100, null=True, blank=True, default='')
     description = models.CharField(max_length=100, null=True, blank=True, default='')
     date = models.DateField(blank=False, null=False, auto_now_add=False, default='')
-    startTime = models.DateField(blank=False, null=False, auto_now_add=False, default='')
-    duration = models.IntegerField(blank=False, null=False, default='')
+    startTime = models.TimeField(blank=False, null=False, auto_now_add=False, default='')
+    endTime = models.TimeField(blank=False, null=False, auto_now_add=False, default='')
     location = models.ForeignKey(Location, blank=False, null=False, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.name
     # location
 
 class TeamEvent(models.Model):
-    team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, blank=True)
+    fk_team = models.ForeignKey(Team, blank= False, null=False, on_delete=models.CASCADE, default='')
+    fk_event = models.ForeignKey(Event, blank=False, null=False, on_delete=models.CASCADE, default='')
+
     
 
 class ProfileService(models.Model):
@@ -100,7 +109,7 @@ class SimpleUser(AbstractBaseUser, PermissionsMixin):
     #fk_team = models.ForeignKey(Team, on_delete=models.CASCADE, blank=True, null=True, help_text='Insert The Colaborator Team', verbose_name='Team',)
     user_img = models.ImageField(upload_to='users/', blank=True, null=True, default='users/default_user.png')
     fk_team = models.ManyToManyField('Team', null=True, blank=True)
-    is_active = models.BooleanField(default=True)
+
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 

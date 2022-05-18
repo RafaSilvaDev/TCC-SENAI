@@ -218,3 +218,9 @@ DJOSER = {
 
 
 POPPLER_PATH = os.path.join(BASE_DIR, 'poppler-0.68.0\\bin') 
+
+TIME_INPUT_FORMATS = [ '%H:%M' ]
+
+# X_FRAME_OPTIONS = 'ALLOWALL'
+
+# XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
