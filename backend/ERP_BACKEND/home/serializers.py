@@ -1,5 +1,4 @@
-from dataclasses import field, fields
-from pyexpat import model
+from dataclasses import field
 from .models import *
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -34,22 +33,6 @@ class TeamSerializer(serializers.ModelSerializer):
         model = Team
         fields = "__all__"
 
-class LocationSerializer(serializers.ModelSerializer):
-    class Meta:
-        many = True
-        model = Team
-        fields = "__all__"
-
-class EventSerializer(serializers.ModelSerializer):
-    location = LocationSerializer(read_only=True)
-    class Meta:
-        many = True
-        model = Team
-        fields = "__all__"
-
-class TeamEventSerializer(serializers.ModelSerializer):
-    team = TeamSerializer(read_only=True)
-    event = EventSerializer(read_only=True)
 
 class ProfileServiceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -104,6 +87,7 @@ class SSMTypeSerializer(serializers.ModelSerializer):
 class SSMSerializer(serializers.ModelSerializer):
     file = serializers.SerializerMethodField('get_file_url')
     miniImg = serializers.SerializerMethodField('get_img_url')
+    fk_type = SSMTypeSerializer(read_only=True)
     class Meta:
         many = True
         model = SSM
@@ -126,11 +110,17 @@ class DDSSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_front_img_url(self, obj):
-        return "apiv1" + obj.frontImg.url
+        try:
+            return "apiv1" + obj.frontImg.url
+        except:
+            return None
 
 
     def get_back_img_url(self, obj):
-        return "apiv1" + obj.backImg.url
+        try:
+            return "apiv1" + obj.backImg.url
+        except:
+            return None
 
 # class SSMRandomOrderSerializer(serializers.ModelSerializer):
 #     fk_ssm = SSMSerializer(read_only=True)
