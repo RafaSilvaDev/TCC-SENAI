@@ -713,6 +713,283 @@ class SystemApiView(APIView):
                 }
             return Response(self.response)
 
+class LocationApiView(APIView):
+    def get(self, request, id=NULL):
+        self.location = ''
+        context = {'request': request}
+        if id is NULL:
+            location = Location.objects.all()
+            results = giantPag.paginate_queryset(location, request)
+            serializer = LocationSerializer(results, many=True, context=context)
+            return giantPag.get_paginated_response(serializer.data)
+        else:
+            try:
+                self.location = Location.objects.get(id=id)
+                self.serializer = LocationSerializer(self.location)
+            except Location.DoesNotExist:
+                return Response({
+                    'msg': 'Location Not Found' if self.location == '' else 'Error',
+                    'status': 404,
+                    'url': request.path
+                })
+        return Response(self.serializer.data)
+    
+    def post(self, request):
+        self.location = ''
+        self.serializer = LocationSerializer(data=request.data, many=True)
+        self.serializer.is_valid(raise_exception=True)
+        self.serializer.save()
+        return Response({
+            'msg': f"The data was inserted - id: {Location.objects.latest('id')}",
+            'status': 200,
+            'url': request.path
+        })
+
+    def delete(self, request, id=NULL):
+        self.response = {}
+        try:
+            if id is not NULL:
+                location = Location.objects.get(id=id)
+                location.delete()
+                self.response = {
+                    'msg': f"The data deleted was: {id}",
+                    'status': 200,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,
+                }
+            else:
+                self.response = {
+                    'msg': "No ID were informed to the DELETE method",
+                    'status': 500,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,
+                }
+        except:
+            self.response = {
+                'msg': 'Something went wrong - Check the values or try again later',
+                'status': 500,
+                'url' : request.path,
+                'user': request.user.username
+            }
+        return Response(self.response)
+
+    def put(self, request, id=NULL):
+        self.response = {}
+        try:
+            if id is not NULL:
+                location = Location.objects.get(id=id)
+                serializer = LocationSerializer(location, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                self.response = {
+                    'msg': f"The data updated was: {id}",
+                    'status': 200,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,}
+            else:
+                self.response = {
+                    'msg': "No ID were informed to the UPDATE method",
+                    'status': 500,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,}
+        except:
+            self.response = {
+                'msg': 'Something went wrong - Check the values or try again later',
+                'status': 500,
+                'url' : request.path,
+                'user': request.user.username
+            }
+        return Response(self.response) 
+
+
+class EventApiView(APIView):
+    def get(self, request, id=NULL):
+        self.event = ''
+        context = {'request': request}
+        if id is NULL:
+            event = Event.objects.all()
+            results = giantPag.paginate_queryset(event, request)
+            serializer = EventSerializer(results, many=True, context=context)
+            return giantPag.get_paginated_response(serializer.data)
+        else:
+            try:
+                self.event = Event.objects.get(id=id)
+                self.serializer = EventSerializer(self.event)
+            except Location.DoesNotExist:
+                return Response({
+                    'msg': 'Event Not Found' if self.event == '' else 'Error',
+                    'status': 404,
+                    'url': request.path
+                })
+        return Response(self.serializer.data)
+    
+    def post(self, request):
+        self.event = ''
+        self.serializer = EventSerializer(data=request.data, many=True)
+        self.serializer.is_valid(raise_exception=True)
+        self.serializer.save()
+        return Response({
+            'msg': f"The data was inserted - id: {Event.objects.latest('id')}",
+            'status': 200,
+            'url': request.path
+        })
+
+    def delete(self, request, id=NULL):
+        self.response = {}
+        try:
+            if id is not NULL:
+                event = Event.objects.get(id=id)
+                event.delete()
+                self.response = {
+                    'msg': f"The data deleted was: {id}",
+                    'status': 200,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,
+                }
+            else:
+                self.response = {
+                    'msg': "No ID were informed to the DELETE method",
+                    'status': 500,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,
+                }
+        except:
+            self.response = {
+                'msg': 'Something went wrong - Check the values or try again later',
+                'status': 500,
+                'url' : request.path,
+                'user': request.user.username
+            }
+        return Response(self.response)
+
+    def put(self, request, id=NULL):
+        self.response = {}
+        try:
+            if id is not NULL:
+                event = Event.objects.get(id=id)
+                serializer = EventSerializer(event, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                self.response = {
+                    'msg': f"The data updated was: {id}",
+                    'status': 200,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,}
+            else:
+                self.response = {
+                    'msg': "No ID were informed to the UPDATE method",
+                    'status': 500,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,}
+        except:
+            self.response = {
+                'msg': 'Something went wrong - Check the values or try again later',
+                'status': 500,
+                'url' : request.path,
+                'user': request.user.username
+            }
+        return Response(self.response) 
+
+class TeamEventApiView(APIView):
+    def get(self, request, id=NULL):
+        self.event = ''
+        context = {'request': request}
+        if id is NULL:
+            teamEvent = TeamEvent.objects.all()
+            results = giantPag.paginate_queryset(teamEvent, request)
+            serializer = TeamEventSerializer(results, many=True, context=context)
+            return giantPag.get_paginated_response(serializer.data)
+        else:
+            try:
+                self.teamEvent = Event.objects.get(id=id)
+                self.serializer = TeamEventSerializer(self.teamEvent)
+            except TeamEvent.DoesNotExist:
+                return Response({
+                    'msg': 'Team Even Not Found' if self.teamEvent == '' else 'Error',
+                    'status': 404,
+                    'url': request.path
+                })
+        return Response(self.serializer.data)
+    
+    def post(self, request):
+        self.teamEvent = ''
+        self.serializer = TeamEventSerializer(data=request.data, many=True)
+        self.serializer.is_valid(raise_exception=True)
+        self.serializer.save()
+        return Response({
+            'msg': f"The data was inserted - id: {TeamEvent.objects.latest('id')}",
+            'status': 200,
+            'url': request.path
+        })
+
+    def delete(self, request, id=NULL):
+        self.response = {}
+        try:
+            if id is not NULL:
+                teamEvent = TeamEvent.objects.get(id=id)
+                teamEvent.delete()
+                self.response = {
+                    'msg': f"The data deleted was: {id}",
+                    'status': 200,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,
+                }
+            else:
+                self.response = {
+                    'msg': "No ID were informed to the DELETE method",
+                    'status': 500,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,
+                }
+        except:
+            self.response = {
+                'msg': 'Something went wrong - Check the values or try again later',
+                'status': 500,
+                'url' : request.path,
+                'user': request.user.username
+            }
+        return Response(self.response)
+
+    def put(self, request, id=NULL):
+        self.response = {}
+        try:
+            if id is not NULL:
+                teamEvent = TeamEvent.objects.get(id=id)
+                serializer = TeamEventSerializer(teamEvent, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+                self.response = {
+                    'msg': f"The data updated was: {id}",
+                    'status': 200,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,}
+            else:
+                self.response = {
+                    'msg': "No ID were informed to the UPDATE method",
+                    'status': 500,
+                    'url': request.path,
+                    'user': request.user.username,
+                    'method': request.method,}
+        except:
+            self.response = {
+                'msg': 'Something went wrong - Check the values or try again later',
+                'status': 500,
+                'url' : request.path,
+                'user': request.user.username
+            }
+        return Response(self.response) 
+
 # class Colab_TeamApiView(APIView):
 
 #     def get(self, request, id=NULL):

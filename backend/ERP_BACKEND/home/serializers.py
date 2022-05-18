@@ -157,7 +157,29 @@ class PatrolAnswerSerializer(serializers.ModelSerializer):
         many = True
         model = PatrolAnswer
         fields = "__all__"
- 
+
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        many = True
+        model = Team
+        fields = "__all__"
+
+class EventSerializer(serializers.ModelSerializer):
+    # location = LocationSerializer(read_only=True)
+    class Meta:
+        many = True
+        model = Team
+        fields = "__all__"
+
+class TeamEventSerializer(serializers.ModelSerializer):
+    fk_team = TeamSerializer(read_only=True)
+    fk_event = EventSerializer(read_only=True) 
+    class Meta:
+        many = True
+        model = TeamEvent
+        fields = "__all__"
 # class ProjectSerializer(serializers.ModelSerializer):
 #     fk_owner = SimpleUserSerializer(read_only=True)
 #     fk_team = TeamSerializer(read_only=True)
