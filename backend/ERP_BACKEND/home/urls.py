@@ -10,8 +10,9 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT,}),
     path('pdf/', fetchpdf.as_view()),
     # path('media/', include('media')),
-    path('search/', search_view.as_view(), name='search'),
-    path('filter/ssm/', search_view_ssm.as_view(), name='search'),
+    path('search/', search_view_dds.as_view(), name='search'),
+    path('filter/ssm/', search_view_ssm.as_view(), name='search2'),
+    path('filter/ssm/title', filter_view_ssm.as_view(), name='search2'),
     
 
     #  ALL PLANTS IN DB

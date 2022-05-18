@@ -58,7 +58,7 @@ class SimpleUserSerializer(serializers.ModelSerializer):
         exclude = ('password',)
     
     def get_user_img_url(self, obj):
-        return "apiv1" + obj.user_img.url
+        return obj.user_img.url
 
 
 # class Colab_TeamSerializer(serializers.ModelSerializer):
@@ -94,10 +94,10 @@ class SSMSerializer(serializers.ModelSerializer):
         fields = "__all__"
     
     def get_file_url(self, obj):
-        return "apiv1" + obj.file.url
+        return obj.file.url
 
     def get_img_url(self, obj):
-        return  "apiv1" + obj.miniImg.url
+        return  obj.miniImg.url
 
 class DDSSerializer(serializers.ModelSerializer):
     frontImg = serializers.SerializerMethodField('get_front_img_url')
@@ -111,14 +111,14 @@ class DDSSerializer(serializers.ModelSerializer):
 
     def get_front_img_url(self, obj):
         try:
-            return "apiv1" + obj.frontImg.url
+            return obj.frontImg.url
         except:
             return None
 
 
     def get_back_img_url(self, obj):
         try:
-            return "apiv1" + obj.backImg.url
+            return obj.backImg.url
         except:
             return None
 

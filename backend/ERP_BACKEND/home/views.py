@@ -19,7 +19,7 @@ from rest_framework import status
 # Create your views here.
 
 giantPag = ResponsePaginationGiant()
-class search_view(generics.ListCreateAPIView):
+class search_view_dds(generics.ListCreateAPIView):
     search_fields = ['title', 'frontText', 'backText']
     filter_backends = (filters.SearchFilter,)
     queryset = DDS.objects.all()
@@ -27,6 +27,13 @@ class search_view(generics.ListCreateAPIView):
 
 class search_view_ssm(generics.ListCreateAPIView):
     search_fields = ['fk_type__type']
+    filter_backends = (filters.SearchFilter,)
+    queryset = SSM.objects.all()
+    serializer_class = SSMSerializer
+
+
+class filter_view_ssm(generics.ListCreateAPIView):
+    search_fields = ['title']
     filter_backends = (filters.SearchFilter,)
     queryset = SSM.objects.all()
     serializer_class = SSMSerializer
