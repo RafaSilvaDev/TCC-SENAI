@@ -31,7 +31,7 @@ import { mapMutations } from 'vuex';
 import SideNavigation from '@/components/sideNavigation/SideNavigation.vue';
 import Button from '@/components/button/Button.vue';
 import Logo from '@/components/minimalHeader/parts/logo/Logo.vue';
-import {logout} from '@/router/RouterBlock'
+import {Logout} from '@/router/RouterBlock'
 
 export default {
   components: {
@@ -53,7 +53,7 @@ export default {
       'changeStateThemeMode'
   ]),
     setLogout: function(){
-      logout()
+      Logout()
     }
   }
 };

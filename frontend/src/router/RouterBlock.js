@@ -6,7 +6,7 @@ let baseURL = "http://localhost:8000/"
 
 export async function setLogin(login){
     await axios.post(baseURL + 'auth/jwt/create/',login).then(response => (
-        //store.commit('setToken', [response.data.access, response.data.refresh]),
+        // store.commit('setToken', [response.data.access, response.data.refresh]),
         localStorage.aToken = response.data.access,
         localStorage.rToken = response.data.refresh,
         router.push('/home')
@@ -25,8 +25,8 @@ export async function checkLogin(){
     })
 }
 
-export async function logout(){
+export async function Logout(){
     localStorage.removeItem('aToken')
     localStorage.removeItem('rToken')
-    router.go(router.currentRoute)
+    router.go("Login")
 }

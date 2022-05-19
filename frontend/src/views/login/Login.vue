@@ -6,11 +6,12 @@
 
 <script>
 export default {
+    mounted(){},
     setup: function() {
         const layout = 'login-layout';
-        
+
         return {
-        layout
+            layout
         };
     },
 }

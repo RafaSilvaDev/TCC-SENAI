@@ -13,6 +13,7 @@
                 :withReset="true"
                 name="dds"
               />
+              <!-- filter/ssm/title?search= -->
               <Button mode="integrated" label="Search BAST" icon="search"/>
             </div>
           </div>
@@ -20,7 +21,7 @@
 
         <div v-if="dataReady" class="conditional-render">
           <div class="cards-grid">
-            <CustomCard  v-for="x in results" :key="x.name" :title="x.title" :id="x.id" :havePopUp="true" dateRead="no" type="pdf" :pdfPath="x.file"/>
+            <CustomCard  v-for="x in results" :key="x.name" :title="x.title" :id="x.id" :img="x.miniImg" :havePopUp="true" dateRead="no" type="pdf" :pdfPath="x.file"/>
           </div>
           
           <div v-if="next" class="btn-more">

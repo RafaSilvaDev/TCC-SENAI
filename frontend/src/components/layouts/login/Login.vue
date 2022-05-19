@@ -67,6 +67,9 @@ export default {
       setLogin(this.login)
     }
   },
+  mounted(){
+    
+  }
 };
 </script>
 
