@@ -24,8 +24,11 @@
               </button>
             </div>
 
-            <Button type="submit" mode="primary" label="Login"/>
-
+            <Button v-if="!inLoading" type="submit" mode="primary" label="Login"/>
+            <div v-else class="load_alert">
+              <img class="load_alert_img"  src="@/assets/img/loading.gif" alt="">
+            </div>
+            <p class="erro_alert" v-if="$route.params.error">Usuário ou senha Inváidos</p>
           </form>
 
         </div>
@@ -48,7 +51,9 @@ export default {
         login:{
           username: 'admin',
           password: 'admin'
-        }
+        },
+        error: true,
+        inLoading: false
     }
   },
   computed: {
@@ -63,12 +68,14 @@ export default {
     Button
   },
    methods:{
-    loginUser: function(){
-      setLogin(this.login)
+    loginUser: async function(){
+      this.inLoading = true
+      await setLogin(this.login)
+      this.inLoading = false
     }
   },
-  mounted(){
-    
+  created(){
+    // this.inLoading = !this.$route.params.error
   }
 };
 </script>

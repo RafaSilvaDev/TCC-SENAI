@@ -11,7 +11,7 @@ export async function setLogin(login){
         localStorage.rToken = response.data.refresh,
         router.push('/home')
     )).catch(error => {
-        router.go(router.currentRoute)
+        router.push({ name: 'Login', params: { error: true }})
     })
 }
 

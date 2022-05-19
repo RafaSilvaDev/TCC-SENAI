@@ -1,9 +1,11 @@
 <template>
 <component :is="layout">
+  
   <div :class="[ 'home', {'-side-open': sideOpen} ]">
   <div class="app">
     <div class="banner">
       <div class="text-banner">
+        
         <p>ETS - Escola Técnica de Engenharia</p>
         <p><a href="#history" id="button-about">Leia mais</a></p>
       </div>
@@ -48,6 +50,7 @@
 </template>
 
 <script>
+import Message from 'primevue/message';
 import { mapState } from 'vuex';
 import Icon from "@/components/icon/Icon.vue";
 import axios from 'axios'
@@ -56,6 +59,12 @@ export default {
   data() {
     return {
       colors: ["red", "purple", "blue", "green"],
+      messages: [
+			{severity: 'info', content: 'Dynamic Info Message'},
+			{severity: 'success', content: 'Dynamic Success Message'},
+			{severity: 'warn', content: 'Dynamic Warning Message'},
+            {severity: 'error', content: 'Dynamic Error Message'}
+		]
     };
   },
   computed: mapState({
@@ -63,6 +72,7 @@ export default {
   }),
   components: {
     Icon,
+    Message
   },
   methods:{
     

@@ -34,7 +34,7 @@
       white-space: nowrap;
       overflow: hidden;
     }
-  
+    
     &.-without-label &__icon {
       margin: auto;
       padding: rem(12px);
@@ -44,7 +44,7 @@
       margin: auto;
       padding: rem(12px) rem(16px);
     }
-  
+
     &--primary {
       background-color: var(--major-accent__enabled__fill__default);
       color: var(--major-accent__enabled__front__default);
@@ -126,6 +126,8 @@
         background-color: var(--integrated__disabled__fill__default);
       }
     }
+
+    
   }
   
   

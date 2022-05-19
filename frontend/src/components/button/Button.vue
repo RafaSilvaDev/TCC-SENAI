@@ -5,6 +5,7 @@
     >
       <Icon v-if="icon" :iconName="icon" className="a-button__icon" :isUiIcon="isUiIcon" />
       <div v-if="label" class="a-button__label">{{label}}</div>
+      
     </button>
 </template>
 
@@ -18,7 +19,7 @@ export default {
     'label': null,
     'icon': null,
     'additionalClasses': [],
-    'isUiIcon': false
+    'isUiIcon': false,
   },
   computed: {
     classes: function() {
