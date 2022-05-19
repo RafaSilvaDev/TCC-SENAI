@@ -19,14 +19,14 @@
                                 <h5 class="title">{{title}}</h5>
                                 <p>{{textFront}}</p>
                             </div>
-                            <!-- <img v-if="data.img" :src="data.img" alt=""> -->
+                            <img :src="`${this.apiURL}` + img" alt="">
                         </div>
                         <div v-if="type!='pdf'" :class="['content-body__back', [{'-face': !front}]]">
                             <div class="text">
                                 <h5 class="title">{{title}}</h5>
                                 <p>{{textBack}}</p>
                             </div>
-                            <!-- <img v-if="data.img" :src="data.img" alt=""> -->
+                            <img :src="`${this.apiURL}` + img" alt="">
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
             </div>
             <div v-else class="pdf-viewer">
                 <Icon iconName="close" className="a-button__icon" @click="showPopUp = false"/>
-                <embed v-if="showPopUp" :src="'http://127.0.0.1:8000/'+pdfPath.concat('#toolbar=0&scrollbars=0&navpanes=0&zoom=100&scrollbar=0')" type="application/pdf">
+                <embed v-if="showPopUp" :src="apiURL+pdfPath.concat('#toolbar=0&scrollbars=0&navpanes=0&zoom=100&scrollbar=0')" type="application/pdf">
             </div>
         </Box>
     </div>
@@ -83,6 +83,7 @@ export default {
             front: true,
             frontPopUp: true,
             showPopUp: false,
+            teste : this.apiURL
         }
     },
     props: [ 'id', 'title', 'textFront', 'textBack', 'img', 'dateRead', 'havePopUp', 'type', 'pdfPath' ],

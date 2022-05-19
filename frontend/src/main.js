@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-
+import PrimeVue from 'primevue/config'
 import DefaultLayout from './components/layouts/default/Default';
 import LoginLayout from './components/layouts/login/Login';
 

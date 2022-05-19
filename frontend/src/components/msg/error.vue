@@ -3,11 +3,18 @@
 </template>
 <script>
 import Message from 'primevue/message';
+<<<<<<< HEAD
 
 export default{
     data(){
         return{ 
         messages: [
+=======
+export default{
+    data(){
+        return{ 
+        messages: [ 
+>>>>>>> refs/remotes/origin/main
 			{severity: 'info', content: 'Dynamic Info Message'},
 			{severity: 'success', content: 'Dynamic Success Message'},
 			{severity: 'warn', content: 'Dynamic Warning Message'},
@@ -19,6 +26,10 @@ export default{
     Message,
     }
 }
+<<<<<<< HEAD
 
 
 </script>
+=======
+</script>
+>>>>>>> refs/remotes/origin/main

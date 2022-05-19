@@ -67,4 +67,8 @@ export default {
     }
   }
 
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> refs/remotes/origin/main

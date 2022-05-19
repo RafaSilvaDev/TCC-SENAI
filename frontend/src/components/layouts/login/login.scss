@@ -27,6 +27,21 @@ header.header-login {
             .a-button {
                 width: 100%;
             }
+            .erro_alert{
+                color: rgb(250, 77, 77);
+                text-align: center;
+            }
+            .load_alert{
+                background-color: none;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                .load_alert_img{
+                    width: 25px;
+                }
+            }
         }
     }
 }

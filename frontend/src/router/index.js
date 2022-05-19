@@ -6,9 +6,13 @@ import BAST from '../views/sgi/bast/BAST.vue';
 import Agenda from '../views/agenda/Agenda.vue';
 import Login from '../views/login/Login.vue';
 import Home from '../views/home/Home.vue';
+<<<<<<< HEAD
 import Patrols from '../views/patrols/patrols.vue';
 import Error404 from '../views/404/404.vue';
 
+=======
+import notfound from '../views/404/notfound.vue';
+>>>>>>> refs/remotes/origin/main
 import { checkLogin } from '@/router/RouterBlock'
 
 
@@ -48,6 +52,7 @@ const routes = [
     component: Home
   },
   {
+<<<<<<< HEAD
     path: '/patrols',
     name: 'Patrols',
     component: Patrols
@@ -56,6 +61,11 @@ const routes = [
     path: '/404',
     name: 'Error404',
     component: Error404
+=======
+    path: '/notfound',
+    name: 'Notfound',
+    component: notfound
+>>>>>>> refs/remotes/origin/main
   },
   
   
@@ -68,7 +78,7 @@ const router = createRouter({
 
 router.afterEach((to, from) => {
   if(to.name === undefined){
-    router.push("home")
+    router.push("Notfound")
   }
 
   if(to.name !== "Login"){    
