@@ -26,7 +26,7 @@
                                 <h5 class="title">{{title}}</h5>
                                 <p>{{textBack}}</p>
                             </div>
-                            <!-- <img v-if="data.img" :src="data.img" alt=""> -->
+                            <img :src="`${this.apiURL}` + img" alt="">
                         </div>
                     </div>
                 </div>

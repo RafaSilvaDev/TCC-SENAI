@@ -56,9 +56,9 @@ class SSMTypeAdmin(admin.ModelAdmin):
     list_display = ('id','type')
 
 
-@admin.register(DDS)
+@admin.register(SSM)
 class SSMAdmin(admin.ModelAdmin):
-    list_display = ('id','title')
+    list_display = ('id','title','fk_type')
 
 @admin.register(PatrolQuest)
 class PatrolQuestAdmin(admin.ModelAdmin):
@@ -76,8 +76,8 @@ class PossibleAnswersAdmin(admin.ModelAdmin):
 class PatrolAnswerAdmin(admin.ModelAdmin):
     list_display = ('id', 'answerDay')
 
-@admin.register(SSM)
-class SSMAdmin(admin.ModelAdmin):
+@admin.register(DDS)
+class DDSAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
 
 
