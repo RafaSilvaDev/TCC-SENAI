@@ -34,11 +34,24 @@
             <div class="classeName">{{cl.name}}</div>
 
             <div class="main">
-              <div class="event-card" v-for="event in eventsFiltered.filter(el => el.class===cl.id)" 
-                  :style="`grid-column-start: ${setColumnGrid(event.start)}; grid-column-end: ${setColumnGrid(event.end)};`"
+              <div class="event-card" v-for="event in eventsFiltered.filter(el => el.fk_team===cl.id)" 
+                  :style="`grid-column-start: ${setColumnGrid(event.startTime)}; grid-column-end: ${setColumnGrid(event.endTime)};background-color: ${generateColor()};`"
                   :key="event.name" 
               >
-                {{event.title}}
+                <div class="event-card-header">
+                  {{event.name}}
+                  <div class="time-event">
+                    {{event.startTime.substring(0, 5)}}
+                    -
+                    {{event.endTime.substring(0, 5)}}
+                  </div>
+                </div>
+
+                <div class="event-card-body">
+                  <p>Responsável: <span>{{event.event_responsible}}</span></p>
+                  <p>Local: <span>{{event.location.localName}}</span></p>
+                  
+                </div>
               </div>
               
             </div>
@@ -55,6 +68,7 @@
 </template>
 
 <script>
+import axios from "axios";
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
 import Button from '@/components/button/Button.vue';
@@ -66,71 +80,31 @@ export default {
       addDay: 0,
       currentDate: '',
       businessStartHours: 8,
-      timeslotInterval: 10,
-      classes: [
-        {id: 1, name: '1º Smart Automation'},
-        {id: 2, name: '2º Smart Automation'},
-        {id: 6, name: '5º Mecatrônica'},
-        {id: 4, name: '7º Mecatrônica'},
-      ],
-      events: [
-        {
-          id: 1,
-          title: 'Aula 1',
-          class: 1,
-          assignee: 'Cléber',
-          date: '2022-05-02',
-          start: '11:00',
-          end: '12:00'
-        },
-        {
-          id: 4,
-          title: 'Aula 5',
-          class: 4,
-          assignee: 'Cléber',
-          date: '2022-05-01',
-          start: '13:00',
-          end: '15:10'
-        },
-        {
-          id: 2,
-          title: 'Aula 2',
-          class: 6,
-          assignee: 'Cléber',
-          date: '2022-05-01',
-          start: '8:00',
-          end: '12:00'
-        },
-        {
-          id: 10,
-          title: 'Aula 3',
-          class: 6,
-          assignee: 'Cléber',
-          date: '2022-05-05',
-          start: '8:00',
-          end: '9:00'
-        },
-      ]
+      timeslotInterval: 15,
+      classes: [],
+      events: []
     }
   },
   mounted: async function() {
     this.setCurrentDate();
 
-    await axios
-      .get(this.apiURL+'/filter/ssm/?search=ama')
-      .then(response => {
-        let data = response.data;
-        this.results = data.results;
-        this.next = data.next;
-        this.previous = data.previous;
-        this.count = data.count;
+    const getTeams = axios.get(this.apiURL+'/teams/')
+    const getEvents = axios.get(this.apiURL+'/events/')
 
-        this.dataReady = true;
-        
+    await axios.all([getTeams, getEvents])
+      .then(axios.spread((respTeam, respEvents) => {
+
+        const teamData = respTeam.data
+        this.classes = teamData.results
+
+        const eventsData = respEvents.data
+        this.events = eventsData.results
+      }))
+      .catch(errors => {
+        errors.forEach(err => {
+          console.log(err)
+        });
       })
-      .catch((err) => {
-        console.log(err);
-      });
     
   },
   methods: {
@@ -140,6 +114,7 @@ export default {
 
       const totalMinutes = Math.abs(this.businessStartHours - h) * 60 + m;
       const rowPos = totalMinutes / this.timeslotInterval + 1;
+
       return rowPos;
     },
     setRowGrid: function(id) {
@@ -161,6 +136,16 @@ export default {
       const str = date.toISOString().split('T')[0];
 
       this.currentDate = str
+    },
+    generateColor: function() {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      
+      return color;      
     }
   },
   computed: {

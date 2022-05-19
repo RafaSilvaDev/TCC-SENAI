@@ -1,6 +1,6 @@
 <template>
 <component :is="layout">
-  <div :class="[ 'home', {'-side-open': sideOpen} ]">
+  <div class="home">
   <div class="app">
     <div class="banner">
       <div class="text-banner">
@@ -52,6 +52,7 @@ import { mapState } from 'vuex';
 import Icon from "@/components/icon/Icon.vue";
 import axios from 'axios'
 import checkLogin from '../../router/RouterBlock'
+
 export default {
   data() {
     return {

@@ -1,3 +1,5 @@
+@use "../../../node_modules/sass-rem" as rem;
+
 .agenda {
 
     .calendar-container {
@@ -14,6 +16,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            padding: rem.convert(32px);
+            max-height: rem.convert(80px);
+            background-color: var(--background);
 
             .day {
                 span {
@@ -130,15 +136,33 @@
             .main {
                 display: grid;
         
-                grid-template-columns: repeat(60, 1fr);
+                grid-template-columns: repeat(40, 1fr);
                 grid-template-rows: 1fr;
 
                 width: 100%;
                 min-height: 100%;
         
                 .event-card {
+                    color: #000;
                     padding: .5rem;
                     background-color: aqua;
+
+                    .event-card-header {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-bottom: .5rem;
+
+                        .time-event {
+                            font-size: 0.8rem;
+                        }
+                    }
+
+                    .event-card-body {
+                        p {
+                            font-size: 0.9rem;
+                        }
+                    } 
                 }
         
                 white-space: nowrap;

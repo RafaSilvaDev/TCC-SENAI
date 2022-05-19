@@ -64,6 +64,7 @@ class Location(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=40, null=False, blank=False, default='')
     event_responsible = models.CharField(max_length=100, null=True, blank=True, default='')
+    fk_team = models.ForeignKey(Team, verbose_name=("Team"), on_delete=models.CASCADE, blank=False, null=False, default="")
     description = models.CharField(max_length=100, null=True, blank=True, default='')
     date = models.DateField(blank=False, null=False, auto_now_add=False, default='')
     startTime = models.TimeField(blank=False, null=False, auto_now_add=False, default='')
@@ -78,7 +79,6 @@ class TeamEvent(models.Model):
     fk_team = models.ForeignKey(Team, blank= False, null=False, on_delete=models.CASCADE, default='')
     fk_event = models.ForeignKey(Event, blank=False, null=False, on_delete=models.CASCADE, default='')
 
-    
 
 class ProfileService(models.Model):
     profile = models.CharField(max_length=50, blank=False, null=False)

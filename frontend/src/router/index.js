@@ -1,16 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
 import DDS from '../views/sgi/dds/DDS.vue';
 import AMA from '../views/sgi/ama/AMA.vue';
 import BAST from '../views/sgi/bast/BAST.vue';
 import Agenda from '../views/agenda/Agenda.vue';
 import Login from '../views/login/Login.vue';
 import Home from '../views/home/Home.vue';
+import Patrols from '../views/patrols/patrols.vue';
+import Error404 from '../views/404/404.vue';
+
 import { checkLogin } from '@/router/RouterBlock'
+
 
 const routes = [
   {
     path: '/',
-    redirect: '/sgi/dds'
+    redirect: '/home'
   },
   {
     path: '/login',
@@ -41,6 +46,16 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/patrols',
+    name: 'Patrols',
+    component: Patrols
+  },
+  {
+    path: '/404',
+    name: 'Error404',
+    component: Error404
   },
   
   

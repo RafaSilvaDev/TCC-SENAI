@@ -1,6 +1,6 @@
 <template>
     <router-link 
-        to="/"
+        to="/home"
         :class="component.concat('__logo')"
         v-html="logo"
     ></router-link>

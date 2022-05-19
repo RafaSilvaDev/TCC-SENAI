@@ -53,6 +53,12 @@
               <span class="m-side-navigation__label">Agenda</span>
             </router-link>
           </li>
+          <li class="m-side-navigation__menuItem" role="none">
+            <router-link to="/patrols" role="menuitem" class="m-side-navigation__link">
+              <i class="a-icon boschicon-bosch-ic-login" title="Login"></i>
+              <span class="m-side-navigation__label">Patrulheiros</span>
+            </router-link>
+          </li>
         </ul>
 
     </div>

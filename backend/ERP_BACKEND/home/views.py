@@ -255,7 +255,7 @@ class TeamApiView(APIView):
         if id is NULL:
             team = Team.objects.all()
             results = giantPag.paginate_queryset(team, request)
-            serializer = AreaSerializer(results, many=True, context=context)
+            serializer = TeamSerializer(results, many=True, context=context)
             return giantPag.get_paginated_response(serializer.data)
         else:
             try:

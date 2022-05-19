@@ -3,6 +3,11 @@
 
 $m-side-navigation--open-width: rem.convert(304px);
 
+
+.background_full .background-wrapper {
+  padding-top: 4.5rem;
+}
+
 html,
 body {
   scroll-behavior: smooth;

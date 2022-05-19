@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from './index';
 import store from '../store';
 
-let baseURL = "http://localhost:8000/"
+const baseURL = "http://localhost:8000/"
 
 export async function setLogin(login){
     await axios.post(baseURL + 'auth/jwt/create/',login).then(response => (
@@ -17,6 +17,7 @@ export async function setLogin(login){
 
 export async function checkLogin(){
     let token = localStorage.aToken
+
     await axios.post(baseURL + 'auth/jwt/verify/', {"token": token}).then(response => {
         // console.log(response)
     }).catch(error => {

@@ -163,10 +163,17 @@ class PatrolAnswerSerializer(serializers.ModelSerializer):
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         many = True
-        model = Team
+        model = Location
         fields = "__all__"
 
 class EventSerializer(serializers.ModelSerializer):
+    location = LocationSerializer(read_only=True)
+    class Meta:
+        many = True
+        model = Event
+        fields = "__all__"
+
+class TeamSerializer(serializers.ModelSerializer):
     # location = LocationSerializer(read_only=True)
     class Meta:
         many = True

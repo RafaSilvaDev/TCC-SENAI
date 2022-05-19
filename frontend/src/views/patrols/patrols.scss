@@ -1,0 +1,111 @@
+@use "../../../node_modules/sass-rem" as rem;
+@import "@/assets/scss/_layout.scss";
+@import "@/assets/scss/_variables.scss";
+
+$m-side-navigation--open-width: rem.convert(304px);
+
+html,
+body {
+  .app {
+
+    .box {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+
+      .table-header {
+        height: 5rem;
+        width: 90%;
+        display: flex;
+        background:var(--background);
+        align-items: center;
+        margin-bottom: 5px;
+        border: 1px solid #cccccc;
+        padding: 5px;
+      }
+
+      .table-header p{
+        font-weight: bold;
+      }
+
+      .container {
+        width: 90%;
+        height: 500px;
+
+        .table-patrols {
+          display: block;
+          background-color: var(--background);
+          border-collapse: collapse;
+          height: 630px;
+          overflow-y: auto;
+          overflow-x: auto;
+
+          .table-content {
+            .table-patrols tr {
+              height: 100%;
+              width: 100%;
+            }
+
+            #mouth {
+                text-align: center;
+
+              }
+
+             #week {
+                text-align: center;
+              }
+
+
+            #check {
+              border: none;
+              min-height: 95px;
+              max-height: 95px;
+              min-width: 95px;
+              max-width: 95px;
+
+              Button {
+                margin: auto;
+                width: 25px;
+                height: 33px;
+                border-radius: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+
+              .btnnull {
+                background: #bfbfbfd1;
+                color: grey;
+                border-color: grey;
+              }
+              .btntrue {
+                background: rgba(38, 185, 38, 0.818);
+                color: green;
+                border-color: green;
+              }
+              .btnfalse {
+                background: #ff2828b2;
+                color: red;
+                border-color: red;
+              }
+
+
+            }
+          }
+        }
+       
+        .table-patrols tr,
+        th{
+          border: 1px solid #cccccc;
+        }
+
+        .table-patrols tbody tr:nth-child(n+4):nth-child(even) {
+          background-color: #b7b7b7be;
+        }
+      }
+    }
+  }
+}
