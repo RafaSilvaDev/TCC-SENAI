@@ -5,6 +5,7 @@ import BAST from '../views/sgi/bast/BAST.vue';
 import Agenda from '../views/agenda/Agenda.vue';
 import Login from '../views/login/Login.vue';
 import Home from '../views/home/Home.vue';
+import notfound from '../views/404/notfound.vue';
 import { checkLogin } from '@/router/RouterBlock'
 
 const routes = [
@@ -42,6 +43,11 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/notfound',
+    name: 'Notfound',
+    component: notfound
+  },
   
   
 ]
@@ -53,7 +59,7 @@ const router = createRouter({
 
 router.afterEach((to, from) => {
   if(to.name === undefined){
-    router.push("home")
+    router.push("Notfound")
   }
 
   if(to.name !== "Login"){    
