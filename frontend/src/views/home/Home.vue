@@ -1,11 +1,6 @@
 <template>
 <component :is="layout">
-<<<<<<< HEAD
   <div class="home">
-=======
-  
-  <div :class="[ 'home', {'-side-open': sideOpen} ]">
->>>>>>> refs/remotes/origin/main
   <div class="app">
     <div class="banner">
       <div class="text-banner">
