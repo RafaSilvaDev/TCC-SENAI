@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "moment": "^2.29.3",
     "primevue": "^3.12.6",
     "sass-rem": "^3.0.0",
     "vue": "^3.0.0",

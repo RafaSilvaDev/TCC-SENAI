@@ -136,23 +136,8 @@ class PatrolQuestSerializer(serializers.ModelSerializer):
         model = PatrolQuest
         fields = "__all__"
 
-class PatrolWeekSerializer(serializers.ModelSerializer):
-    fk_patrol = SimpleUserSerializer(read_only=True)
-    class Meta:
-        many = True
-        model = PatrolWeek
-        fields = "__all__"
-
-class PossibleAnswerSerializer(serializers.ModelSerializer):
-    class Meta:
-        many = True
-        model = PossibleAnswer
-        fields = "__all__"
-
 class PatrolAnswerSerializer(serializers.ModelSerializer):
-    fk_patrolweek = PatrolWeekSerializer(read_only=True)
     fk_patrolquest = PatrolQuestSerializer(read_only=True)
-    fk_answer = PossibleAnswerSerializer(read_only=True)
     class Meta:
         many = True
         model = PatrolAnswer
@@ -163,17 +148,10 @@ class PatrolAnswerSerializer(serializers.ModelSerializer):
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         many = True
-        model = Location
+        model = Team
         fields = "__all__"
 
 class EventSerializer(serializers.ModelSerializer):
-    location = LocationSerializer(read_only=True)
-    class Meta:
-        many = True
-        model = Event
-        fields = "__all__"
-
-class TeamSerializer(serializers.ModelSerializer):
     # location = LocationSerializer(read_only=True)
     class Meta:
         many = True

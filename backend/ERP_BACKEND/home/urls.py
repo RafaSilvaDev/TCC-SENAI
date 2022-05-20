@@ -75,16 +75,6 @@ urlpatterns = [
     #  FILTERED PATROL QUEST BY PRIMARY KEY
     path('patrolquests/<int:id>', PatrolQuestApiView.as_view(), name="patrolquestsFilter"),
 
-    #  ALL PATROL WEEKS IN DB
-    path('patrolweeks/', PatrolWeekApiView.as_view(), name="patrolweeks"),
-    #  FILTERED PATROL WEEK BY PRIMARY KEY
-    path('patrolweeks/<int:id>', PatrolWeekApiView.as_view(), name="patrolweeksFilter"),
-
-    #  ALL POSSIBLE ANSWERS IN DB
-    path('possibleanswers/', PossibleAnswerApiView.as_view(), name="possibleanswers"),
-    #  FILTERED POSSIBLE ANSWER BY PRIMARY KEY
-    path('possibleanswers/<int:id>', PossibleAnswerApiView.as_view(), name="possibleanswersFilter"),
-
     #  ALL PATROL ANSWERS IN DB
     path('patrolanswers/', PatrolAnswerApiView.as_view(), name="patrolanswers"),
     #  FILTERED PATROL ANSWER BY PRIMARY KEY

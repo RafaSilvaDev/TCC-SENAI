@@ -64,7 +64,6 @@ class Location(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=40, null=False, blank=False, default='')
     event_responsible = models.CharField(max_length=100, null=True, blank=True, default='')
-    fk_team = models.ForeignKey(Team, verbose_name=("Team"), on_delete=models.CASCADE, blank=False, null=False, default="")
     description = models.CharField(max_length=100, null=True, blank=True, default='')
     date = models.DateField(blank=False, null=False, auto_now_add=False, default='')
     startTime = models.TimeField(blank=False, null=False, auto_now_add=False, default='')
@@ -79,6 +78,7 @@ class TeamEvent(models.Model):
     fk_team = models.ForeignKey(Team, blank= False, null=False, on_delete=models.CASCADE, default='')
     fk_event = models.ForeignKey(Event, blank=False, null=False, on_delete=models.CASCADE, default='')
 
+    
 
 class ProfileService(models.Model):
     profile = models.CharField(max_length=50, blank=False, null=False)
@@ -114,7 +114,7 @@ class SimpleUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.name
+        return self.username
 
     def save(self, *args, **kwargs):
         if not self.password.startswith('pbkdf2_sha256'):
@@ -211,7 +211,7 @@ class DDS(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True, default="", help_text='Insert The Title',verbose_name='Title' )
     frontImg = models.ImageField(upload_to=changeImgName, default="", blank=True, null=True, help_text='Insert Front Image', verbose_name='Front Image')
     frontText = models.CharField(max_length=1000,default="", blank=True, null=True, help_text='Insert Front Text', verbose_name='Front Text' )
-    backImg = models.ImageField(upload_to=changeImgName, default="", blank=True, null=True, help_text='Insert Back Image', verbose_name='Front Image')
+    backImg = models.ImageField(upload_to=changeImgName, default="", blank=True, null=True, help_text='Insert Front Image', verbose_name='Front Image')
     backText = models.CharField(max_length=1000,default="", blank=True, null=True, help_text='Insert Back Text', verbose_name='Back Text' )
     #fk_type = models.ForeignKey(SSMType, on_delete=models.CASCADE, blank=True, null=True, default="")
     
@@ -237,28 +237,24 @@ class PatrolQuest(models.Model):
         return str(self.id)
 
     
-
+'''
 class PatrolWeek(models.Model):
     initialDate = models.DateField(blank=False, null=False, auto_now_add=False, help_text='Insert The Initial Patrol Date', verbose_name='Initial Date' )
     fk_patrol = models.ForeignKey(SimpleUser, on_delete=models.CASCADE, blank=False, null=False)
 
     def __str__(self) -> str:
         return str(self.initialDate)
-
-class PossibleAnswer(models.Model):
-    answer = models.CharField(max_length=100,null=False, blank=False, help_text="Insert The Possible Answer", verbose_name="Answer")
-
-    def __str__(self) -> str:
-        return self.answer
+'''
 
 class PatrolAnswer(models.Model):
     answerDay = models.DateField(null=False, blank=False, help_text="Insert The Date", auto_now_add=False, verbose_name="Date")
-    fk_patroweek = models.ForeignKey(PatrolWeek, on_delete=models.CASCADE, blank=False, null=False, help_text="Insert The Patrol Week",  verbose_name="Date")
+    answerBool = models.CharField(max_length=10, null=True, blank=True)
+    answer = models.CharField(max_length=500,null=True, blank=True, help_text="Insert The Possible Answer", verbose_name="Answer")
     fk_patrolquest =  models.ForeignKey(PatrolQuest, on_delete=models.CASCADE, blank=False, null=False, help_text="Insert The Patrol Quest",  verbose_name="Quest")
-    fk_answer = models.ForeignKey(PossibleAnswer, on_delete=models.CASCADE, blank=False, null=False, default="", help_text="Insert The Answer",  verbose_name="Answer")
+    fk_patrol = models.ForeignKey(SimpleUser, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self) -> str:
-        return str(self.fk_patroweek)
+        return str(self.fk_patrol)
 
 
 

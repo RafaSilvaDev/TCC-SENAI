@@ -64,14 +64,6 @@ class SSMAdmin(admin.ModelAdmin):
 class PatrolQuestAdmin(admin.ModelAdmin):
     list_display = ('id', 'question')
 
-@admin.register(PatrolWeek)
-class PatrolWeekAdmin(admin.ModelAdmin):
-    list_display = ('id', 'initialDate', 'fk_patrol')
-
-@admin.register(PossibleAnswer)
-class PossibleAnswersAdmin(admin.ModelAdmin):
-    list_display = ('id','answer')
-
 @admin.register(PatrolAnswer)
 class PatrolAnswerAdmin(admin.ModelAdmin):
     list_display = ('id', 'answerDay')
