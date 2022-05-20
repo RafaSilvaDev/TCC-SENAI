@@ -11,7 +11,7 @@ $m-side-navigation--open-width: rem.convert(304px);
     transition: $default-transition-timing padding $default-transition-easing;
 
     padding-top: calc(54px + rem.convert(64px));
-    padding-bottom: calc(54px + rem.convert(64px));
+    padding-bottom: 1.5rem;
 
     .background-internal {
         padding: 0 1rem;

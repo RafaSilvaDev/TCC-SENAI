@@ -9,8 +9,8 @@
           </div>
           <div class="header__right">
             <div class="header__right__search">
-              <SearchForm :withReset="true" name="dds" />
-              <Button mode="integrated" label="Search DDS" icon="search" />
+              <SearchForm :withReset="true" name="dds" @getSearchValue="getSEARCH"/>
+              <Button mode="integrated" label="Search DDS" icon="search"/>
             </div>
             <Button type="button" mode="primary" label="DDS Today" @click="getDDStoday"/>
           </div>
@@ -123,18 +123,20 @@ import CustomCard from "@/components/customCard/CustomCard.vue";
 import Box from "@/components/box/Box.vue";
 import Icon from "@/components/icon/Icon.vue";
 import ActivityIndicator from "@/components/activityIndicator/ActivityIndicator.vue";
-
 import SearchForm from "@/components/searchForm/SearchForm.vue";
+
 
 export default {
   data: function () {
     return {
-      results: null,
+      resultsAll: null,
       next: null,
       previous: null,
       count: 0,
       dataReady: false,
       moreCardsLoading: false,
+
+      resultSearch: null,
 
       showDDStoday: false,
       ddsToday: '',
@@ -145,6 +147,13 @@ export default {
     };
   },
   computed: {
+    ddsFiltered: function() {
+      if ( this.resultSearch ) {
+        return this.resultSearch
+      } else {
+        return this.resultsAll
+      }
+    },
     ...mapState({
       sideOpen: (state) => state.sideNavigationOpen,
     }),
@@ -217,7 +226,7 @@ export default {
         .then((response) => {
           let data = response.data;
           this.next = data.next;
-          this.results = this.results.concat(data.results);
+          this.resultsAll = this.resultsAll.concat(data.resultsAll);
 
           this.moreCardsLoading = false;
         })
@@ -237,6 +246,26 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    getSEARCH: async function(n) {
+      await axios
+        .get(this.apiURL + "/search/?search=" + n)
+        .then((response) => {
+          let data = response.data;
+          let sResult = data.results;
+
+          if ( sResult.length <= 0 ) {
+            this.resultSearch = false;
+          } else {
+            this.resultSearch = sResult;
+          }
+
+          console.log(this.resultSearch)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
     }
   },
   components: {

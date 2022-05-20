@@ -5,6 +5,7 @@
             :id="`search-${name ? name.toLowerCase().replace(/\s/g, '-') : null}`"
             placeholder="Search"
             :withReset="withReset"
+            @searchClick="setSearchValue"
         />
     </form>
 </template>
@@ -13,6 +14,12 @@
 import TextField from '@/components/textField/TextField.vue';
 
 export default {
+    data: function() {
+        return {
+            searchValue: '',
+        }
+    },
+    emits: ['getSearchValue'],
     props: [
         'withReset',
         'id',
@@ -21,6 +28,16 @@ export default {
     components: {
         TextField
     },
+    methods: {
+        setSearchValue: function(n) {
+            this.searchValue = n
+        }
+    },
+    watch: {
+        searchValue(newVal, oldVal) {
+            this.$emit('getSearchValue', newVal)
+        }
+    }
 
 }
 </script>

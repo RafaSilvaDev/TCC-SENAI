@@ -6,14 +6,15 @@
         :id="id"
         :disabled="disabled"
         :placeholder="placeholder"
+        v-model="searchValue"
       />
       
         <button v-if="isPassword" type="button" class="a-text-field__icon-password" @click="showPwd=!showPwd">
           <Icon iconName="watch-on" />
         </button>
 
-        <button v-if="isSearch" type="submit" class="a-text-field__icon-search">
-            <Icon titleText="LoremIpsum" iconName="search" />
+        <button v-if="isSearch" type="submit" class="a-text-field__icon-search" @click='$emit("searchClick", searchValue)'>
+            <Icon titleText="LoremIpsum" iconName="search"/>
         </button>
         <button v-if="withReset" type="button" class="a-text-field__icon-close">
             <Icon className="a-button__icon" iconName="close" />
@@ -26,6 +27,7 @@
 import Icon from '@/components/icon/Icon.vue';
 
 export default {
+    emits: ["searchClick"],
     props: [
         'withReset',
         'disabled',
@@ -37,6 +39,7 @@ export default {
     data: function() {
         return {
             showPwd: false,
+            searchValue: '',
         }
     },
     computed: {

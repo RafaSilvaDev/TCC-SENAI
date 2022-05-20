@@ -17,7 +17,8 @@
                         <div :class="['content-body__front', [{'-face': front}]]">
                             <div class="text">
                                 <h5 class="title">{{title}}</h5>
-                                <p>{{textFront}}</p>
+                                <p v-if="textFront">{{textFront}}</p>
+                                <p v-else>Nenhum texto.</p>
                             </div>
                             
                         </div>
@@ -50,8 +51,9 @@
                             <div :class="['content-body__front', [{'-face': frontPopUp}]]">
                                 <div class="text">
                                     <h5 class="title">{{title}}</h5>
-                                    <p>{{textFront}}</p>
-                                    <img v-if="frontImg" :src="`${this.apiURL}` + frontImg" alt="">
+                                    <p v-if="textFront">{{textFront}}</p>
+                                    <p v-else>Nenhum texto.</p>
+                                    <img class="img-card" v-if="frontImg" :src="`${this.apiURL}` + frontImg" alt="">
                                 </div>
 
                             </div>
@@ -59,7 +61,7 @@
                                 <div class="text">
                                     <h5 class="title">{{title}}</h5>
                                     <p>{{textBack}}</p>
-                                    <img v-if="backImg" :src="`${this.apiURL}` + backImg" alt="">
+                                    <img class="img-card" v-if="backImg" :src="`${this.apiURL}` + backImg" alt="">
                                 </div>
 
                             </div>       
