@@ -31,17 +31,16 @@
                   <th rowspan="2" id="header-question" style="padding: 5px">
                     Questões
                   </th>
-                  <th colspan="7" id="mouth" style="flex">#</th>
                 </tr>
 
                 <tr id="week">
-                  <th>{{ weekDates[0] }} Segunda</th>
-                  <th>{{ weekDates[1] }} Terça</th>
-                  <th>{{ weekDates[2] }} Quarta</th>
-                  <th>{{ weekDates[3] }} Quinta</th>
-                  <th>{{ weekDates[4] }} Sexta</th>
-                  <th>{{ weekDates[5] }} Sábado</th>
-                  <th>{{ weekDates[6] }} Domingo</th>
+                  <th>{{ weekDates[0].slice(0, 5) }} Segunda</th>
+                  <th>{{ weekDates[1].slice(0, 5) }} Terça</th>
+                  <th>{{ weekDates[2].slice(0, 5) }} Quarta</th>
+                  <th>{{ weekDates[3].slice(0, 5) }} Quinta</th>
+                  <th>{{ weekDates[4].slice(0, 5) }} Sexta</th>
+                  <th>{{ weekDates[5].slice(0, 5) }} Sábado</th>
+                  <th>{{ weekDates[6].slice(0, 5) }} Domingo</th>
                 </tr>
 
                 <tr
@@ -106,6 +105,23 @@ export default {
     };
   },
   methods: {
+    sendAnswer: function (date, statusAnswer, answer, user) {
+        axios
+          .post(this.apiURL + "/patrolanswers/", {
+            fk_patrolquest: i+1,
+            answerDay: weekDates[this.buttonPosition[1]],
+            answerBoll: statusAnswer,
+            answer: this.observationResponse,
+            fk_patrol: user,
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((response) => {
+            console.log(response);
+          });
+    },
+
     returnOptions: function (status) {
       console.log("teste ", status);
       this.isObservationVisible = false;
@@ -137,7 +153,7 @@ export default {
 
       var thisWeekDates = getThisWeekDates();
       thisWeekDates.forEach(function (date) {
-        let cDate = date.format("DD/MM");
+        let cDate = date.format("DD/MM/YYYY");
         weekDates.push(cDate);
       });
       this.weekDates = weekDates;
@@ -150,10 +166,11 @@ export default {
         this.observationResponse[this.buttonPosition[1]][
           this.buttonPosition[0]
         ] = null;
-      console.log("clicou no evnto: " + status);
+      console.log("clicou no evnto: " + status); // status da resposta do usuario
       this.questionResponse[this.buttonPosition[1]][this.buttonPosition[0]] =
         status;
-      console.log(this.questionResponse);
+        console.log(this.buttonPosition[0]);
+      console.log(this.questionResponse); // array com respostas (7 colunas por 16 linhas)
     },
     obsSelected: function (obs) {
       console.log("obs");
