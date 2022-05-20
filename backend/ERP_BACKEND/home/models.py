@@ -211,7 +211,7 @@ class DDS(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True, default="", help_text='Insert The Title',verbose_name='Title' )
     frontImg = models.ImageField(upload_to=changeImgName, default="", blank=True, null=True, help_text='Insert Front Image', verbose_name='Front Image')
     frontText = models.CharField(max_length=1000,default="", blank=True, null=True, help_text='Insert Front Text', verbose_name='Front Text' )
-    backImg = models.ImageField(upload_to=changeImgName, default="", blank=True, null=True, help_text='Insert Front Image', verbose_name='Front Image')
+    backImg = models.ImageField(upload_to=changeImgName, default="", blank=True, null=True, help_text='Insert Back Image', verbose_name='Front Image')
     backText = models.CharField(max_length=1000,default="", blank=True, null=True, help_text='Insert Back Text', verbose_name='Back Text' )
     #fk_type = models.ForeignKey(SSMType, on_delete=models.CASCADE, blank=True, null=True, default="")
     
@@ -250,6 +250,7 @@ class PossibleAnswer(models.Model):
 
     def __str__(self) -> str:
         return self.answer
+
 class PatrolAnswer(models.Model):
     answerDay = models.DateField(null=False, blank=False, help_text="Insert The Date", auto_now_add=False, verbose_name="Date")
     fk_patroweek = models.ForeignKey(PatrolWeek, on_delete=models.CASCADE, blank=False, null=False, help_text="Insert The Patrol Week",  verbose_name="Date")

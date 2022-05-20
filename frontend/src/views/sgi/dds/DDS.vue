@@ -30,6 +30,8 @@
               :textFront="x.frontText"
               :textBack="x.backText"
               :havePopUp="true"
+              :frontImg="x.frontImg"
+              :backImg="x.backImg"
               dateRead="2002/03/04"
             />
           </div>
@@ -158,7 +160,6 @@ export default {
         this.previous = data.previous;
         this.count = data.count;
 
-        console.log(this.results)
         this.dataReady = true;
       })
       .catch((err) => {

@@ -18,7 +18,7 @@ export default {
     'mode': { default:'primary' },
     'label': null,
     'icon': null,
-    'additionalClasses': [],
+    'additionalClasses': null,
     'isUiIcon': false,
   },
   computed: {

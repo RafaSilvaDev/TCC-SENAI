@@ -4,7 +4,7 @@
       <div class="app">
         <div class="box">
           <div class="table-header">
-            <p>Patrulheiros</p>
+            <h4>Patrulheiros</h4>
           </div>
           <div class="container">
             <Modal
@@ -41,7 +41,6 @@
 
                 <tr
                   class="row-question"
-                  style="height: 100px"
                   v-for="(q, index) in questions"
                   :key="index"
                 >

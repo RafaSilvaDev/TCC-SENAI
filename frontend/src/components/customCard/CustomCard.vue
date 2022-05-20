@@ -19,14 +19,14 @@
                                 <h5 class="title">{{title}}</h5>
                                 <p>{{textFront}}</p>
                             </div>
-                            <img :src="`${this.apiURL}` + img" alt="">
+                            
                         </div>
                         <div v-if="type!='pdf'" :class="['content-body__back', [{'-face': !front}]]">
                             <div class="text">
                                 <h5 class="title">{{title}}</h5>
                                 <p>{{textBack}}</p>
                             </div>
-                            <img :src="`${this.apiURL}` + img" alt="">
+                            
                         </div>
                     </div>
                 </div>
@@ -51,6 +51,7 @@
                                 <div class="text">
                                     <h5 class="title">{{title}}</h5>
                                     <p>{{textFront}}</p>
+                                    <img v-if="frontImg" :src="`${this.apiURL}` + frontImg" alt="">
                                 </div>
 
                             </div>
@@ -58,6 +59,7 @@
                                 <div class="text">
                                     <h5 class="title">{{title}}</h5>
                                     <p>{{textBack}}</p>
+                                    <img v-if="backImg" :src="`${this.apiURL}` + backImg" alt="">
                                 </div>
 
                             </div>       
@@ -86,7 +88,7 @@ export default {
             teste : this.apiURL
         }
     },
-    props: [ 'id', 'title', 'textFront', 'textBack', 'img', 'dateRead', 'havePopUp', 'type', 'pdfPath' ],
+    props: [ 'id', 'title', 'textFront', 'textBack', 'frontImg', 'backImg','dateRead', 'havePopUp', 'type', 'pdfPath' ],
     components: {
         Icon,
         Box,

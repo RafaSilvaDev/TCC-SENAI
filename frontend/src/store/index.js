@@ -11,8 +11,6 @@ export default createStore({
     },
     changeStateThemeMode: (state) => {
       state.darkMode = !state.darkMode;
-      console.log(state.darkMode)
-      localStorage.theme = !localStorage.theme;
     }
   },
   actions: {

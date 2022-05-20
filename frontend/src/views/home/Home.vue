@@ -5,8 +5,11 @@
     <div class="banner">
       <div class="text-banner">
         
-        <p>ETS - Escola Técnica de Engenharia</p>
-        <p><a href="#history" id="button-about">Leia mais</a></p>
+        <h1>ETS - Escola Técnica de Engenharia</h1>
+        <button type="button" class="a-button a-button--primary -without-icon" href="#history">
+          <a class="a-button__label" href="#history">Leia mais...</a>
+        </button>
+
       </div>
     </div>
     <div class="cards">
@@ -15,7 +18,7 @@
           <Icon iconName="home" />
         </div>
         <div class="card-text">
-          <p class="card-title">Wiki ETS</p>
+          <h6 class="card-title">Wiki ETS</h6>
           <p class="card-box">
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
@@ -24,12 +27,11 @@
           </p>
         </div>
       </div>
-      <br />
     </div>
     <div id="history" class="history">
       <div class="content-history">
         <div class="title-history">
-        <h1>Sobre nós</h1>
+        <h3>Sobre nós</h3>
         </div>
         <div class="text-history">
           <p>
@@ -41,7 +43,7 @@
 
           </p>
         </div>
-      </div>-
+      </div>
     </div>
   </div>
 </div>
@@ -52,6 +54,7 @@
 import Message from 'primevue/message';
 import { mapState } from 'vuex';
 import Icon from "@/components/icon/Icon.vue";
+import Button from "@/components/button/Button.vue";
 import axios from 'axios'
 import checkLogin from '../../router/RouterBlock'
 
@@ -72,7 +75,8 @@ export default {
   }),
   components: {
     Icon,
-    Message
+    Message,
+    Button
   },
   methods:{
     
