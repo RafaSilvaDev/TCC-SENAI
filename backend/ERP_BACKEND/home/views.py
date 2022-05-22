@@ -18,6 +18,11 @@ from drf_pdf.renderer import PDFRenderer
 from rest_framework import status
 # Create your views here.
 import datetime
+
+from django.db.models import Q
+
+
+
 giantPag = ResponsePaginationGiant()
 class search_view_dds(generics.ListCreateAPIView):
     search_fields = ['title', 'frontText', 'backText']
@@ -64,10 +69,25 @@ class PatrolWeekApiView(APIView):
         serializer = PatrolWeekSerializer(patrol)
         return Response(serializer.data)
 
+    def put(self, request, id=NULL):
+        
+        self.response = {}
 
+        patrol = PatrolWeek.objects.get(status=True)
+        serializer = PatrolWeekSerializer(patrol, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        self.response = {
+            'msg': f"The data updated was: {id}",
+            'status': 200,
+            'url': request.path,
+            'user': request.user.username,
+            'method': request.method,}
+        
+        return Response(self.response)
     # def post(self, request, id=NULL):
 
-from django.db.models import Q
+
 
 class GeneratedAnswerFieldsApiView(APIView):
     """
@@ -78,10 +98,6 @@ class GeneratedAnswerFieldsApiView(APIView):
     #permission_classes = (IsAuthenticated,)   
     def post(self, request, id=NULL):
         context = {'request': request}
-        self.plant = ''
-        self.serializer = GeneratedAnswerFieldsSerializer(data=request.data, many=True)
-        self.serializer.is_valid(raise_exception=True)
-
         # id = str(self.patrol_week_id).split('_', 1)[0]
         # print(2)
         PatrolWeekDATA = PatrolWeek.objects.get(id=id)
@@ -89,23 +105,24 @@ class GeneratedAnswerFieldsApiView(APIView):
         print(PatrolWeekDATA.fk_patrol.id)
 
 
-        
-        for day in range(0,7):
-            cDay = PatrolDay()
-            cDay.cDate = PatrolWeekDATA.initialDate + datetime.timedelta(days=day)
-            cDay.save()
-            for quests in PatrolWeekDATA.fk_quests.all():
-                newAnswer = PatrolAnswer()
-                newAnswer.fk_patrolquest = quests
-                newAnswer.fk_patrolweek = PatrolWeekDATA
-                newAnswer.save()
-                item = PatrolAnswer.objects.get(id=newAnswer.id)
-                cDay.fk_answers.add(item)
+        if not PatrolWeekDATA.answerGenerated:
+            for day in range(0,7):
+                cDay = PatrolDay()
+                cDay.cDate = PatrolWeekDATA.initialDate + datetime.timedelta(days=day)
+                cDay.save()
+                for quests in PatrolWeekDATA.fk_quests.all():
+                    newAnswer = PatrolAnswer()
+                    newAnswer.fk_patrolquest = quests
+                    newAnswer.fk_patrolweek = PatrolWeekDATA
+                    newAnswer.save()
+                    item = PatrolAnswer.objects.get(id=newAnswer.id)
+                    cDay.fk_answers.add(item)
 
-            cDay.save()
-            PatrolWeekDATA.fk_days.add(cDay)
-            PatrolWeekDATA.save()
-                     
+                cDay.save()
+                PatrolWeekDATA.fk_days.add(cDay)
+                PatrolWeekDATA.answerGenerated = True
+                PatrolWeekDATA.save()
+                            
 
 
         # for i in range(0,7):
@@ -136,9 +153,9 @@ class GeneratedAnswerFieldsApiView(APIView):
         #     PatrolWeekDATA.save()
 
 
-        PatrolWeekDATA.save()
+        # PatrolWeekDATA.save()
 
-        self.serializer.save()
+        # self.serializer.save()
         return Response({
             # 'msg': f"The data inserted was: {GeneratedAnswerFieldsSerializer.objects.latest('id')}",
             'status': 200,

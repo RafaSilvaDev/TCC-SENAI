@@ -77,7 +77,7 @@ class PatrolWeekAdmin(admin.ModelAdmin):
 
 @admin.register(PatrolDay)
 class PatrolDayAdmin(admin.ModelAdmin):
-    list_display = ('id',)
+    list_display = ('id', 'cDate')
     filter_horizontal = ('fk_answers',)
 
 @admin.register(DDS)

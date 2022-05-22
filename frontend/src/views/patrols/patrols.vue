@@ -12,7 +12,7 @@
               @modalClicked="modalSelected($event)"
             />
             <Observation v-model:visible="isObservationVisible"
-                v-model:data="observationResponse[buttonPosition[1]][buttonPosition[0]]"
+                v-model:data="this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answer"
                 @modalClicked="obsSelected($event)" @verificationClicked="(status)=>{
                     if(status)
                       returnOptions(status)
@@ -25,43 +25,38 @@
                 <tr id="calendar">
                   <th rowspan="2" id="header-question" style="padding: 5px">Questões</th>
                   <th colspan="7" id="mouth" style="flex">    
-                    #
+                    {{patrolData.fk_days[0].cDate.slice(0, 4)}}
                   </th>
                 </tr>
                 
                 <tr id="week">
-                  <th># Segunda</th>
-                  <th># Terça</th>
-                  <th># Quarta</th>
-                  <th># Quinta</th>
-                  <th># Sexta</th>
-                  <th># Sábado</th>
-                  <th># Domingo</th>
+                  <th v-for="day in patrolData.fk_days" :key="day" >{{days[patrolData.fk_days.indexOf(day)]}} - {{day.cDate.slice(8, 10)}}/{{day.cDate.slice(5, 7)}}</th>
+                  
                 </tr>
 
                 <tr
 
                   class="row-question"
                   style="height: 100px"
-                  v-for="(q, index) in patrolData.fk_answers"
+                  v-for="(q, index) in patrolData.fk_days[0].fk_answers"
                   :key="q"
                 >
                   <td id="question" style="padding: 5px">
-                    {{ q.fk_patrolquest.question }} 
+                    {{index + 1}} - {{ q.fk_patrolquest.question }}
                     <!-- index + " - " + -->
                   </td>
                   
                   <td
                     id="check"
-                    v-for="(b, b_index) in questionResponse.length"
+                    v-for="(b, b_index) in this.patrolData.fk_days.length"
                     :key="b_index"
                   >
                     <Button
-                      :class="'btn' + questionResponse[b_index][index]"
+                      :class="'btn' + this.patrolData.fk_days[b_index].fk_answers[index].answerBool"
                       @click="
                         () => {
-                          buttonPosition[0] = index;
-                          buttonPosition[1] = b_index;
+                          buttonPosition[0] = b_index;
+                          buttonPosition[1] = index;
                           showModal();
                         }
                       "
@@ -73,7 +68,9 @@
             </table>
           </div>
         </div>
+        
       </div>
+      <input @click="sendData()" type="button" value="Enviar"/>
     </div>
   </component>
 </template>
@@ -95,52 +92,7 @@ export default {
       mounted: false,
       questionResponse: [],
       observationResponse: [],
-      patrolData: {
-    "id": 1,
-    "fk_patrol": {
-        "id": 1,
-        "fk_team": [],
-        "currentLevel": null,
-        "user_img": "/media/users/default_user.png",
-        "last_login": "2022-05-21T19:19:02.447910-03:00",
-        "first_name": "",
-        "last_name": "",
-        "username": "admin",
-        "email": "admin@admin.com",
-        "edv": "",
-        "birthDate": "2022-05-21",
-        "is_staff": true,
-        "is_superuser": true,
-        "groups": [],
-        "user_permissions": []
-    },
-    "fk_answers": [
-        {
-            "id": 30,
-            "fk_patrolquest": {
-                "id": 5,
-                "question": "O piso está em boas condições?"
-            },
-            "answerDay": null,
-            "answerBool": null,
-            "answer": null,
-            "fk_patrolweek": 1
-        },
-        {
-            "id": 31,
-            "fk_patrolquest": {
-                "id": 6,
-                "question": "Berços, Pallets, Caixas estão respeitando os limites dos corredores e estão organizados em seus lugares conforme demarcação?"
-            },
-            "answerDay": null,
-            "answerBool": null,
-            "answer": null,
-            "fk_patrolweek": 1
-        }
-    ],
-    "initialDate": "2022-05-21",
-    "status": true
-},
+      patrolData: {},
       days: ["Segunda", "Terça", "Quarta","Quinta", "Sexta", "Sábado", "Domingo"],
       questions:[],
       answers:[],
@@ -160,7 +112,7 @@ export default {
         "A Coleta Seletiva esta sendo realizada de forma correta?",
         "Existem garrafas de água ou alimentos nos postos de trabalho?",
         "As ferramentas manuais estão em bom estado de conservação e sem improvisação?",
-        "Os armários dos vestiários estão fechados adequadamente",
+        "Os armários dos vestiários estão fechados adequadamente?",
       ],
       
     };
@@ -171,15 +123,40 @@ export default {
         this.isObservationVisible = false;
         this.isModalVisible = true;         
     },
+    sendData: async function (){
+      await axios
+      
+      .put(this.apiURL+"/patrolweek/", this.patrolData)
+      .then((response) => {
+        this.patrolData = response.data;
+        // this.questions = this.results.fk_answers
+        console.log(this.patrolData);
+        document.location.reload(true);
+
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    },
     modalSelected: function (status) {
       if(status === false)
         this.isObservationVisible = true;
       else
-        this.observationResponse[this.buttonPosition[1]][this.buttonPosition[0]] = null;
+        this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answer = null;
       console.log("clicou no evnto: " + status);
-      this.questionResponse[this.buttonPosition[1]][this.buttonPosition[0]] =
-        status;
-      console.log(this.questionResponse); 
+      //row = this.buttonPosition[1];
+      // column = this.buttonPosition[0]
+      this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool = status
+      // this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answer
+      // console.log(this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool)
+      this.questionResponse[this.buttonPosition[0]][this.buttonPosition[1]] = status;
+      
+      console.log("testeeeeeeeeeeee")
+      console.log(this.buttonPosition[1])
+      console.log(this.buttonPosition[0])
+      console.log(this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answer)
+      // console.log(this.questionResponse); 
+      console.log(this.patrolData)
     },
     obsSelected: function (obs){
       console.log('obs');
@@ -193,11 +170,14 @@ export default {
         this.questionResponse.push(this.questions.map(() => null));
         this.observationResponse.push(this.questions.map(() => null))
       }
-      
+      // observationResponse[buttonPosition[1]][buttonPosition[0]]
     },
 
     showModal() {
-      if(this.observationResponse[this.buttonPosition[1]][this.buttonPosition[0]])   
+      console.log(12212)
+      console.log(this.buttonPosition[0])
+      console.log(this.buttonPosition[1])
+      if(this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answer)   
       this.isObservationVisible = true  
       else
       this.isModalVisible = true;
@@ -212,7 +192,7 @@ export default {
       .then((response) => {
         this.patrolData = response.data;
         // this.questions = this.results.fk_answers
-        console.log(this.patrolData.fk_answers);
+        console.log(this.patrolData);
       })
       .catch((err) => {
         console.log(err);
@@ -220,7 +200,7 @@ export default {
     },
   },
   created(){
-    // this.getPatrolWeek()
+    this.getPatrolWeek()
   },
   mounted() {
     for (let row = 0; row < 16; row++) {}

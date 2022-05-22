@@ -235,12 +235,19 @@ class PatrolQuest(models.Model):
 
 
 class PatrolWeek(models.Model):
+
+    def allQuests():
+        return PatrolQuest.objects.all()
+
     initialDate = models.DateField(blank=False, null=False, auto_now_add=False, help_text='Insert The Initial Patrol Date', verbose_name='Initial Date' )
     fk_patrol = models.ForeignKey(SimpleUser, on_delete=models.CASCADE, blank=False, null=False)
     fk_days = models.ManyToManyField('PatrolDay', null=True, blank=True)
-    fk_quests = models.ManyToManyField('PatrolQuest', null=False, blank=False)
+    fk_quests = models.ManyToManyField('PatrolQuest', null=False, blank=False, default=allQuests)
     status = models.BooleanField(default=True)
+    answerGenerated = models.BooleanField(default=False)
+
     
+
     def __str__(self) -> str:
         return f'{self.id}_{self.initialDate}-{self.fk_patrol}'
 
@@ -254,14 +261,16 @@ class PatrolWeek(models.Model):
 
 class PatrolDay(models.Model):
     cDate = models.DateField(blank=False, null=False, auto_now_add=False, help_text='Insert The Initial Patrol Date', verbose_name='Initial Date' )
-    
     fk_answers = models.ManyToManyField('PatrolAnswer', null=True, blank=True)
+
+    def __str__(self) -> str:
+        return str(self.cDate)
     
            
 
 class PatrolAnswer(models.Model):
     answerDay = models.DateField(null=True, blank=True, help_text="Insert The Date", auto_now_add=False, verbose_name="Date")
-    answerBool = models.CharField(max_length=10, null=True, blank=True)
+    answerBool = models.BooleanField(null=True)
     answer = models.CharField(max_length=500,null=True, blank=True, help_text="Insert The Possible Answer", verbose_name="Answer")  
     fk_patrolquest =  models.ForeignKey(PatrolQuest, on_delete=models.CASCADE, blank=False, null=False, help_text="Insert The Patrol Quest",  verbose_name="Quest")
     fk_patrolweek = models.ForeignKey(PatrolWeek, on_delete=models.CASCADE, blank=True, null=True)
@@ -271,21 +280,21 @@ class PatrolAnswer(models.Model):
 
 
 
-class GeneratedAnswerFields(models.Model):
-    patrol_week_id = models.ForeignKey(PatrolWeek, null=False, blank=False, on_delete=models.CASCADE)
+# class GeneratedAnswerFields(models.Model):
+#     patrol_week_id = models.ForeignKey(PatrolWeek, null=False, blank=False, on_delete=models.CASCADE)
 
-    def save(self, *args, **kwargs):
-        pass
-        # print(self.patrol_week_id)
+#     def save(self, *args, **kwargs):
+#         pass
+#         # print(self.patrol_week_id)
         
-        # id = str(self.patrol_week_id).split('_', 1)[0]
-        # print(2)
-        # PatrolWeekDATA = PatrolWeek.objects.get(id=id)
-        # for quests in PatrolWeekDATA.fk_quests.all():
-        #     data = PatrolAnswer()
-        #     data.fk_patrolquest = quests
-        #     data.fk_patrolweek = PatrolWeekDATA
-        #     data.save()
+#         # id = str(self.patrol_week_id).split('_', 1)[0]
+#         # print(2)
+#         # PatrolWeekDATA = PatrolWeek.objects.get(id=id)
+#         # for quests in PatrolWeekDATA.fk_quests.all():
+#         #     data = PatrolAnswer()
+#         #     data.fk_patrolquest = quests
+#         #     data.fk_patrolweek = PatrolWeekDATA
+#         #     data.save()
 
 
 

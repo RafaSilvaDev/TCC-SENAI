@@ -2,6 +2,7 @@ from dataclasses import field
 from .models import *
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from drf_writable_nested import WritableNestedModelSerializer
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     """Customizes JWT default Serializer to add more information about user"""
@@ -130,7 +131,7 @@ class DDSSerializer(serializers.ModelSerializer):
 #         fields = "__all__"
 
 
-class PatrolQuestSerializer(serializers.ModelSerializer):
+class PatrolQuestSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
     class Meta:
         many = True
         model = PatrolQuest
@@ -142,8 +143,8 @@ class PatrolQuestSerializer(serializers.ModelSerializer):
 
 
 
-class PatrolAnswerSerializer(serializers.ModelSerializer):
-    fk_patrolquest = PatrolQuestSerializer(read_only=True)
+class PatrolAnswerSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
+    fk_patrolquest = PatrolQuestSerializer(read_only=False)
     class Meta:
         many = True
         model = PatrolAnswer
@@ -155,20 +156,23 @@ class PatrolAnswerSerializer(serializers.ModelSerializer):
 
 
 
-class PatrolDaySerializer(serializers.ModelSerializer):
+class PatrolDaySerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
     # fk_quests = PatrolQuestSerializer(read_only=True, many = True)
-    fk_answers = PatrolAnswerSerializer(read_only=True, many = True)
+    fk_answers = PatrolAnswerSerializer(read_only=False, many = True)
+    # cDate = serializers.DateField(format="%d/%m/%Y")
     class Meta:
         many = True
         model = PatrolDay
         fields = "__all__"
         # exclude = ('fk_quests', )
 
-class PatrolWeekSerializer(serializers.ModelSerializer):
+class PatrolWeekSerializer(WritableNestedModelSerializer, serializers.ModelSerializer):
+
     # fk_patrol = SimpleUserSerializer(read_only=True, many = False)
     # # fk_quests = PatrolQuestSerializer(read_only=True, many = True)
     # fk_answers = PatrolAnswerSerializer(read_only=True, many = True)
-    fk_days = PatrolDaySerializer(read_only=True, many = True)
+    fk_days = PatrolDaySerializer(read_only=False, many = True)
+    # initialDate = serializers.DateField(format="%d/%m/%Y")
     class Meta:
         many = True
         model = PatrolWeek
@@ -176,12 +180,12 @@ class PatrolWeekSerializer(serializers.ModelSerializer):
         exclude = ('fk_quests', )
 
 
-class GeneratedAnswerFieldsSerializer(serializers.ModelSerializer):
-    patrol_week_id = PatrolWeekSerializer(read_only=True, many = False)
-    class Meta:
-        many = True
-        model = GeneratedAnswerFields
-        fields = "__all__"
+# class GeneratedAnswerFieldsSerializer(serializers.ModelSerializer):
+#     patrol_week_id = PatrolWeekSerializer(read_only=True, many = False)
+#     class Meta:
+#         many = True
+#         model = GeneratedAnswerFields
+#         fields = "__all__"
 
 
 class LocationSerializer(serializers.ModelSerializer):
