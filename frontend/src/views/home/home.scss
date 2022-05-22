@@ -96,7 +96,31 @@ body {
           display: flex;
           align-items: center;
           justify-content: center;
+          flex-direction: column;
           color: #fff;
+          .link_item{
+            
+            text-decoration: none;
+            color: black;
+            transition: .3s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(1.3);
+            
+            &:hover{
+              color: white;
+              &::after{ 
+                position:absolute;
+                content: "→";
+                top: 15px;
+              }
+
+            }
+            
+          }
+            
+
         }
 
         .card-text {

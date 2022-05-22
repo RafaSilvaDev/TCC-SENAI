@@ -17,7 +17,7 @@ from drf_pdf.response import PDFFileResponse
 from drf_pdf.renderer import PDFRenderer
 from rest_framework import status
 # Create your views here.
-
+import datetime
 giantPag = ResponsePaginationGiant()
 class search_view_dds(generics.ListCreateAPIView):
     search_fields = ['title', 'frontText', 'backText']
@@ -47,6 +47,112 @@ class fetchpdf(APIView):
             file_path='/path/to/file.pdf',
             status=status.HTTP_200_OK
         )
+
+
+class PatrolWeekApiView(APIView):
+    """
+    API PatrolWeek
+    """
+
+    
+    #permission_classes = (IsAuthenticated,)   
+    def get(self, request, id=NULL):
+        patrol = ''
+        context = {'request': request}
+    
+        patrol = PatrolWeek.objects.get(status=True)
+        serializer = PatrolWeekSerializer(patrol)
+        return Response(serializer.data)
+
+
+    # def post(self, request, id=NULL):
+
+from django.db.models import Q
+
+class GeneratedAnswerFieldsApiView(APIView):
+    """
+    API GeneratedAnswerFields
+    """
+
+    
+    #permission_classes = (IsAuthenticated,)   
+    def post(self, request, id=NULL):
+        context = {'request': request}
+        self.plant = ''
+        self.serializer = GeneratedAnswerFieldsSerializer(data=request.data, many=True)
+        self.serializer.is_valid(raise_exception=True)
+
+        # id = str(self.patrol_week_id).split('_', 1)[0]
+        # print(2)
+        PatrolWeekDATA = PatrolWeek.objects.get(id=id)
+        #fk_patrol
+        print(PatrolWeekDATA.fk_patrol.id)
+
+
+        
+        for day in range(0,7):
+            cDay = PatrolDay()
+            cDay.cDate = PatrolWeekDATA.initialDate + datetime.timedelta(days=day)
+            cDay.save()
+            for quests in PatrolWeekDATA.fk_quests.all():
+                newAnswer = PatrolAnswer()
+                newAnswer.fk_patrolquest = quests
+                newAnswer.fk_patrolweek = PatrolWeekDATA
+                newAnswer.save()
+                item = PatrolAnswer.objects.get(id=newAnswer.id)
+                cDay.fk_answers.add(item)
+
+            cDay.save()
+            PatrolWeekDATA.fk_days.add(cDay)
+            PatrolWeekDATA.save()
+                     
+
+
+        # for i in range(0,7):
+        #     data2 = PatrolDay()
+        #     data2.cDate = PatrolWeekDATA.initialDate + datetime.timedelta(days=i)
+        #     for quests in PatrolWeekDATA.fk_quests.all():
+        #         ver = PatrolAnswer.objects.filter(
+        #             Q(fk_patrolweek=PatrolWeekDATA) & Q(fk_patrolquest=quests) & Q(answerDay=PatrolWeekDATA.initialDate + datetime.timedelta(days=i))
+        #         )   
+        #         if len(ver) == 0:
+        #             #fk_answers
+                    
+        #             data = PatrolAnswer()
+        #             data.fk_patrolquest = quests
+        #             data.fk_patrolweek = PatrolWeekDATA
+        #             # data.answerDay = PatrolWeekDATA.initialDate + i
+        #             data.save()
+        #             print(2121)
+        #             data2.fk_answers.add(data)
+        #             # data2.save()
+        #             # print(21213123)
+                   
+        #             # PatrolWeekDATA.fk_answers.add(data)
+        #     print(1)
+        #     data2.save()
+        #     print(2)
+        #     PatrolWeekDATA.fk_days.add(data2)
+        #     PatrolWeekDATA.save()
+
+
+        PatrolWeekDATA.save()
+
+        self.serializer.save()
+        return Response({
+            # 'msg': f"The data inserted was: {GeneratedAnswerFieldsSerializer.objects.latest('id')}",
+            'status': 200,
+            'url': request.path,
+            'user': request.user.username,
+            'method': request.method,
+        })
+
+
+#  GeneratedAnswerFieldsSerializer       
+
+
+
+
 
 class PlantApiView(APIView):
     """

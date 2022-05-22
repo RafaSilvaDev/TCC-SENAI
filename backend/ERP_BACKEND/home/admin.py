@@ -68,8 +68,23 @@ class PatrolQuestAdmin(admin.ModelAdmin):
 class PatrolAnswerAdmin(admin.ModelAdmin):
     list_display = ('id', 'answerDay')
 
+@admin.register(PatrolWeek)
+class PatrolWeekAdmin(admin.ModelAdmin):
+    list_display = ('id', 'fk_patrol')
+    # filter_horizontal = ('fk_days',)
+    filter_horizontal = ('fk_quests','fk_days')
+
+
+@admin.register(PatrolDay)
+class PatrolDayAdmin(admin.ModelAdmin):
+    list_display = ('id',)
+    filter_horizontal = ('fk_answers',)
+
 @admin.register(DDS)
 class DDSAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
 
+# @admin.register(GeneratedAnswerFields)
+# class GeneratedAnswerFieldsAdmin(admin.ModelAdmin):
+#     list_display = ('id',)
 

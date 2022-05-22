@@ -15,18 +15,14 @@
           </div>
         </div>
         <div class="cards">
-          <div v-for="x in colors" :key="x" :class="['card-content', `${x}`]">
+          <div v-if="results" v-for="x in results" :key="x" :class="['card-content', `${colors[results.indexOf(x)]}`]">
             <div class="card-icon">
-              <router-link :to="results[index]['router_to']"
-                ><Icon
-                  v-if="results[index]['icon']"
-                  :iconName="results[index]['icon']"
-              /></router-link>
+              <router-link class="link_item" :to="x.router_to"><Icon  :iconName="x.icon"/></router-link>
             </div>
             <div class="card-text">
-              <h6 class="card-title">{{ results[index]["name"] }}</h6>
+              <h6 class="card-title">{{x.name}}</h6>
               <p class="card-box">
-                {{ results[index]["description"] }}
+                {{x.description}}
               </p>
             </div>
           </div>
@@ -78,7 +74,7 @@ export default {
   data() {
     return {
       results: [],
-      colors: ["red", "purple", "blue", "green"],
+      colors: ["red", "purple", "blue", "green","red", "purple", "blue", "green","red", "purple", "blue", "green","red", "purple", "blue", "green","red", "purple", "blue", "green"],
       messages: [
         { severity: "info", content: "Dynamic Info Message" },
         { severity: "success", content: "Dynamic Success Message" },
@@ -96,13 +92,9 @@ export default {
     Button,
   },
   methods: {
-    caminho: (rota) => {
-      this.$route.push(rota);
-    },
-  },
-  created: async function () {
-    axios
-      .get("http://127.0.0.1:8000/apiv1/systems/")
+    getSystems: function(){
+      axios
+      .get(this.apiURL+"/systems/")
       .then((response) => {
         let data = response.data;
         this.results = data.results;
@@ -112,6 +104,10 @@ export default {
       .catch((err) => {
         console.log(err);
       });
+    }
+  },
+  created: function () {
+    this.getSystems()
   },
   setup: function () {
     let layout = "default-layout";

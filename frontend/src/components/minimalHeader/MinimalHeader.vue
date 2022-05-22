@@ -17,7 +17,7 @@
                 <Button mode="integrated" icon="sun-moon" @click="changeStateThemeMode"/>
               </li>
             </ul>
-            <Logo component="o-minimal-header" @click="setLogout"/>
+            <Logo component="o-minimal-header" @click="backHome"/>
             <div className="o-minimal-header__falafel">
               
             </div>
@@ -52,8 +52,8 @@ export default {
       'changeStateSideNavigation',
       'changeStateThemeMode'
   ]),
-    setLogout: function(){
-      Logout()
+    backHome: function(){
+      this.$router.push('home')
     }
   }
 };

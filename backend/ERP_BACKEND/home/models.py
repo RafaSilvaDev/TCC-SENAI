@@ -1,7 +1,3 @@
-from audioop import maxpp
-from email.policy import default
-import imp
-from statistics import mode
 from ERP_BACKEND.settings import POPPLER_PATH
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 from django.db import models
@@ -9,10 +5,11 @@ import uuid
 import os
 from django.dispatch import receiver
 from django.contrib.auth.hashers import make_password
-import base64
+# import base64
 from PIL import Image
 from pdf2image import convert_from_path
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Models
 def changeImgName(instance, filename):
     try:
@@ -234,28 +231,83 @@ class PatrolQuest(models.Model):
     question = models.CharField(max_length=1000,default="", blank=False, null=False, help_text='Insert The Patrol Question', verbose_name='Question' )
 
     def __str__(self) -> str:
-        return str(self.id)
+        return str(self.question)
 
-    
-'''
+
 class PatrolWeek(models.Model):
     initialDate = models.DateField(blank=False, null=False, auto_now_add=False, help_text='Insert The Initial Patrol Date', verbose_name='Initial Date' )
     fk_patrol = models.ForeignKey(SimpleUser, on_delete=models.CASCADE, blank=False, null=False)
-
+    fk_days = models.ManyToManyField('PatrolDay', null=True, blank=True)
+    fk_quests = models.ManyToManyField('PatrolQuest', null=False, blank=False)
+    status = models.BooleanField(default=True)
+    
     def __str__(self) -> str:
-        return str(self.initialDate)
-'''
+        return f'{self.id}_{self.initialDate}-{self.fk_patrol}'
+
+    def save(self, *args, **kwargs):
+        super(PatrolWeek, self).save(*args, **kwargs)
+        # incomeData = self.fk_quests.all()
+        # print(incomeData)
+        # for quest in incomeData:
+        #     print(quest)
+
+
+class PatrolDay(models.Model):
+    cDate = models.DateField(blank=False, null=False, auto_now_add=False, help_text='Insert The Initial Patrol Date', verbose_name='Initial Date' )
+    
+    fk_answers = models.ManyToManyField('PatrolAnswer', null=True, blank=True)
+    
+           
 
 class PatrolAnswer(models.Model):
-    answerDay = models.DateField(null=False, blank=False, help_text="Insert The Date", auto_now_add=False, verbose_name="Date")
+    answerDay = models.DateField(null=True, blank=True, help_text="Insert The Date", auto_now_add=False, verbose_name="Date")
     answerBool = models.CharField(max_length=10, null=True, blank=True)
-    answer = models.CharField(max_length=500,null=True, blank=True, help_text="Insert The Possible Answer", verbose_name="Answer")
+    answer = models.CharField(max_length=500,null=True, blank=True, help_text="Insert The Possible Answer", verbose_name="Answer")  
     fk_patrolquest =  models.ForeignKey(PatrolQuest, on_delete=models.CASCADE, blank=False, null=False, help_text="Insert The Patrol Quest",  verbose_name="Quest")
-    fk_patrol = models.ForeignKey(SimpleUser, on_delete=models.CASCADE, blank=True, null=True)
+    fk_patrolweek = models.ForeignKey(PatrolWeek, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self) -> str:
-        return str(self.fk_patrol)
+        return str(self.fk_patrolweek)
 
+
+
+class GeneratedAnswerFields(models.Model):
+    patrol_week_id = models.ForeignKey(PatrolWeek, null=False, blank=False, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        pass
+        # print(self.patrol_week_id)
+        
+        # id = str(self.patrol_week_id).split('_', 1)[0]
+        # print(2)
+        # PatrolWeekDATA = PatrolWeek.objects.get(id=id)
+        # for quests in PatrolWeekDATA.fk_quests.all():
+        #     data = PatrolAnswer()
+        #     data.fk_patrolquest = quests
+        #     data.fk_patrolweek = PatrolWeekDATA
+        #     data.save()
+
+
+
+# import requests
+# # @receiver(post_save, sender=PatrolWeek)
+# def setAnswerFields(sender, **kwargs):    
+#     # print(PatrolWeek.objects.get(id=kwargs['instance'].id))
+#     # time.sleep(1)
+#     print(1)
+#     r = requests.get(f"http://localhost:8000/apiv1/patrolweek/{kwargs['instance'].id }")
+#     for d in r:
+#         print(d)
+#     if kwargs['created']:
+#         pass
+        
+        
+#         # for d in PatrolWeek.objects.get(id=kwargs['instance'].id).fk_quests.all():
+#         #     print(1)
+
+
+# post_save.connect(setAnswerFields, sender=PatrolWeek)
+        
 
 
 
@@ -417,4 +469,5 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
 
 
 
- 
+
+   

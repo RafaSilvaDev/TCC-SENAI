@@ -136,6 +136,12 @@ class PatrolQuestSerializer(serializers.ModelSerializer):
         model = PatrolQuest
         fields = "__all__"
 
+
+
+
+
+
+
 class PatrolAnswerSerializer(serializers.ModelSerializer):
     fk_patrolquest = PatrolQuestSerializer(read_only=True)
     class Meta:
@@ -143,6 +149,39 @@ class PatrolAnswerSerializer(serializers.ModelSerializer):
         model = PatrolAnswer
         fields = "__all__"
 
+
+
+
+
+
+
+class PatrolDaySerializer(serializers.ModelSerializer):
+    # fk_quests = PatrolQuestSerializer(read_only=True, many = True)
+    fk_answers = PatrolAnswerSerializer(read_only=True, many = True)
+    class Meta:
+        many = True
+        model = PatrolDay
+        fields = "__all__"
+        # exclude = ('fk_quests', )
+
+class PatrolWeekSerializer(serializers.ModelSerializer):
+    # fk_patrol = SimpleUserSerializer(read_only=True, many = False)
+    # # fk_quests = PatrolQuestSerializer(read_only=True, many = True)
+    # fk_answers = PatrolAnswerSerializer(read_only=True, many = True)
+    fk_days = PatrolDaySerializer(read_only=True, many = True)
+    class Meta:
+        many = True
+        model = PatrolWeek
+        # fields = "__all__"
+        exclude = ('fk_quests', )
+
+
+class GeneratedAnswerFieldsSerializer(serializers.ModelSerializer):
+    patrol_week_id = PatrolWeekSerializer(read_only=True, many = False)
+    class Meta:
+        many = True
+        model = GeneratedAnswerFields
+        fields = "__all__"
 
 
 class LocationSerializer(serializers.ModelSerializer):

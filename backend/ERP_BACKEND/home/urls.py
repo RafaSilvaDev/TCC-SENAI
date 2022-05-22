@@ -72,6 +72,13 @@ urlpatterns = [
 
     # GET ALL PATROL QUESTS IN DB
     path('patrolquests/', PatrolQuestApiView.as_view(), name="patrolquests"),
+    ################################
+    path('patrolweek/', PatrolWeekApiView.as_view(), name="patrolweek"),
+    path('patrolweek/<int:id>', PatrolWeekApiView.as_view(), name="patrolweek"),
+
+
+
+    path('generate/<int:id>', GeneratedAnswerFieldsApiView.as_view(), name="generate"),
     #  FILTERED PATROL QUEST BY PRIMARY KEY
     path('patrolquests/<int:id>', PatrolQuestApiView.as_view(), name="patrolquestsFilter"),
 
