@@ -233,7 +233,7 @@ class PatrolQuest(models.Model):
     def __str__(self) -> str:
         return str(self.question)
 
-
+import datetime
 class PatrolWeek(models.Model):
 
     def allQuests():
@@ -253,6 +253,31 @@ class PatrolWeek(models.Model):
 
     def save(self, *args, **kwargs):
         super(PatrolWeek, self).save(*args, **kwargs)
+
+        # PatrolWeekDATA = PatrolWeek.objects.get(id=self.id)
+        # #fk_patrol
+        # print(PatrolWeekDATA.fk_patrol.id)
+
+
+        # if not PatrolWeekDATA.answerGenerated:
+        #     for day in range(0,7):
+        #         cDay = PatrolDay()
+        #         cDay.cDate = PatrolWeekDATA.initialDate + datetime.timedelta(days=day)
+        #         cDay.save()
+        #         for quests in PatrolWeekDATA.fk_quests.all():
+        #             newAnswer = PatrolAnswer()
+        #             newAnswer.fk_patrolquest = quests
+        #             newAnswer.fk_patrolweek = PatrolWeekDATA
+        #             newAnswer.save()
+        #             item = PatrolAnswer.objects.get(id=newAnswer.id)
+        #             cDay.fk_answers.add(item)
+
+        #         cDay.save()
+        #         PatrolWeekDATA.fk_days.add(cDay)
+        #         PatrolWeekDATA.answerGenerated = True
+        #         PatrolWeekDATA.save()
+
+            
         # incomeData = self.fk_quests.all()
         # print(incomeData)
         # for quest in incomeData:

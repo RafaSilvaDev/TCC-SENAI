@@ -174,10 +174,7 @@ export default {
     },
 
     showModal() {
-      console.log(12212)
-      console.log(this.buttonPosition[0])
-      console.log(this.buttonPosition[1])
-      if(this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answer)   
+      if(!this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool)   
       this.isObservationVisible = true  
       else
       this.isModalVisible = true;
