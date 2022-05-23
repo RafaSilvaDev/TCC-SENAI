@@ -104,6 +104,13 @@ $m-side-navigation--open-width: rem.convert(304px);
         .table-patrols tbody tr:nth-child(n+4):nth-child(even) {
           background-color: #b7b7b7be;
         }
+
+        .table-patrols tbody tr:nth-child(n+4):nth-child(even) {
+          .side-header{
+            background-color: #C9C9C9 !important;
+          }
+        }
+        
       }
     }
   }

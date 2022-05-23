@@ -22,9 +22,9 @@
 
             <table class="table-patrols" v-if="mounted">
               <tbody class="table-content">
-                <tr id="calendar">
+                <tr id="calendar" >
                   <th rowspan="2" id="header-question" style="padding: 5px">Questões</th>
-                  <th colspan="7" id="mouth" style="flex">    
+                  <th colspan="7" id="mouth" style="flex;">
                     {{patrolData.fk_days[0].cDate.slice(0, 4)}}
                   </th>
                 </tr>
@@ -41,7 +41,7 @@
                   v-for="(q, index) in patrolData.fk_days[0].fk_answers"
                   :key="q"
                 >
-                  <td id="question" style="padding: 5px">
+                  <td class="side-header" id="question" style="padding: 5px; position: sticky; left:0; z-index: 2; background: var(--background)">
                     {{index + 1}} - {{ q.fk_patrolquest.question }}
                     <!-- index + " - " + -->
                   </td>
@@ -174,7 +174,7 @@ export default {
     },
 
     showModal() {
-      if(!this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool)   
+      if(!this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool && this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool !== null)   
       this.isObservationVisible = true  
       else
       this.isModalVisible = true;
