@@ -2,7 +2,8 @@
     <div :class="[ 'm-side-navigation', [sideOpen ? '-open' : '-close'] ]">
 
         <SideNavigationHeader appName="ERP ETS" />
-        <ul class="m-side-navigation__menuItems">
+        <div class="testemenu">
+          <ul class="m-side-navigation__menuItems">
           <li :class="['m-side-navigation__menuItem', {'-open': openSGI}]" role="none" @click="changeStateSGI">
             <button type="button" class="m-side-navigation__group">
               <Icon iconName="molecule" />
@@ -60,12 +61,23 @@
             </router-link>
           </li>
         </ul>
+        <ul class="m-side-navigation__menuItems">
+          <li class="m-side-navigation__menuItem" role="none">
+            <span role="menuitem" class="m-side-navigation__link">
+              <i class="a-icon boschicon-bosch-ic-login" title="Login"></i>
+              <span class="m-side-navigation__label">Logout</span>
+            </span>
+          </li>
+        </ul>
+        </div>
 
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+
+import { Logout } from '@/router/RouterBlock'
 
 import SideNavigationHeader from '@/components/sideNavigation/sideNavigationHeader.vue';
 import Icon from '@/components/icon/Icon.vue';

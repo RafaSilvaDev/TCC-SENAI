@@ -23,7 +23,7 @@
             <CustomCard  v-for="x in results" :key="x.title" :title="x.title" :id="x.id" :havePopUp="true" dateRead="2002/03/04"/> 
             -->
             <CustomCard
-              v-for="x in results"
+              v-for="x in ddsFiltered"
               :key="x.title"
               :id="x.id"
               :title="x.title"
@@ -34,6 +34,7 @@
               :backImg="x.backImg"
               dateRead="2002/03/04"
             />
+            <p v-if="resultSearch===false">Nenhum dado encontrado.</p>
           </div>
 
           <div v-if="next" class="btn-more">
@@ -148,7 +149,9 @@ export default {
   },
   computed: {
     ddsFiltered: function() {
-      if ( this.resultSearch ) {
+      if ( this.resultSearch===false ) {
+        return []
+      } else if ( this.resultSearch ) {
         return this.resultSearch
       } else {
         return this.resultsAll
@@ -164,7 +167,7 @@ export default {
       .get(this.apiURL+"/dds/")
       .then((response) => {
         let data = response.data;
-        this.results = data.results;
+        this.resultsAll = data.results;
         this.next = data.next;
         this.previous = data.previous;
         this.count = data.count;
@@ -259,8 +262,6 @@ export default {
           } else {
             this.resultSearch = sResult;
           }
-
-          console.log(this.resultSearch)
         })
         .catch((err) => {
           console.log(err);

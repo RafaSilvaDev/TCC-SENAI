@@ -41,7 +41,7 @@ import Logo from '@/components/minimalHeader/parts/logo/Logo.vue';
 import Icon from '@/components/icon/Icon.vue';
 import TextField from '@/components/textField/TextField.vue';
 import Button from "@/components/button/Button.vue";
-import {setLogin} from '@/router/RouterBlock'
+import { setLogin } from '@/router/RouterBlock'
 
 export default {
   

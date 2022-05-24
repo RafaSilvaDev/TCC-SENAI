@@ -99,6 +99,7 @@ export default {
 
         const eventsData = respEvents.data
         this.events = eventsData.results
+        console.log(eventsData)
       }))
       .catch(errors => {
         errors.forEach(err => {

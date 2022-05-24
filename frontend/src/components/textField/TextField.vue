@@ -16,7 +16,7 @@
         <button v-if="isSearch" type="submit" class="a-text-field__icon-search" @click='$emit("searchClick", searchValue)'>
             <Icon titleText="LoremIpsum" iconName="search"/>
         </button>
-        <button v-if="withReset" type="button" class="a-text-field__icon-close">
+        <button v-if="withReset" type="button" class="a-text-field__icon-close" @click='closeSearch'>
             <Icon className="a-button__icon" iconName="close" />
         </button>
 
@@ -58,6 +58,12 @@ export default {
                 { 'a-text-field--password': this.isPassword },
                 { 'a-text-field--search': this.isSearch },
             ]
+        }
+    },
+    methods: {
+        closeSearch: function() {
+            this.searchValue = ''
+            this.$emit("searchClick", "")
         }
     },
     components: {

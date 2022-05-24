@@ -4,7 +4,7 @@
       <div class="app">
         <div class="box">
           <div class="table-header">
-            <p>Patrulheiros</p>
+            <h4>Patrulheiros</h4>
           </div>
           <div class="container">
             <Modal
@@ -70,7 +70,7 @@
         </div>
         
       </div>
-      <input @click="sendData()" type="button" value="Enviar"/>
+      <Button @click="sendData()" mode="primary" label="Save"/>
     </div>
   </component>
 </template>
@@ -79,10 +79,13 @@
 import { mapState } from "vuex";
 
 import Icon from "@/components/icon/Icon.vue";
+import Button from "@/components/button/Button.vue";
 import Modal from "@/components/modal/modal.vue";
 import Observation from "@/components/modal/observation.vue";
-import Button from "primevue/button";
+import ButtonPrime from "primevue/button";
 import axios from "axios";
+
+
 export default {
   data() {
     return {
@@ -212,6 +215,7 @@ export default {
   components: {
     Icon,
     Modal,
+    ButtonPrime,
     Button,
     Observation,
   },
