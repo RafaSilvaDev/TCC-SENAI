@@ -408,8 +408,8 @@ class TeamApiView(APIView):
         self.response = {}
         try:
             if id is not NULL:
-                area = Team.objects.get(id=id)
-                area.delete()
+                team = Team.objects.get(id=id)
+                team.delete()
                 self.response = {
                     'msg': f"The data deleted was: {id}",
                     'status': 200,
@@ -437,8 +437,8 @@ class TeamApiView(APIView):
         self.response = {}
         try:
             if id is not NULL:
-                area = Team.objects.get(id=id)
-                serializer = AreaSerializer(area, data=request.data)
+                team = Team.objects.get(id=id)
+                serializer = TeamSerializer(team, data=request.data)
                 serializer.is_valid(raise_exception=True)
                 serializer.save()
                 self.response = {
