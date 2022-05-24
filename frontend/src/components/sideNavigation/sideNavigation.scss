@@ -78,6 +78,12 @@ $m-side-navigation--open-width: rem(304px);
   &__menuItems {
     padding: 0;
 
+    &.logout {
+      position: absolute;
+      bottom: 10px;
+      width: 100%;
+    }
+
     /* The Menu Item */
     .m-side-navigation__menuItem,
     .m-side-navigation__menuSubitem {

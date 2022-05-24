@@ -61,10 +61,10 @@
             </router-link>
           </li>
         </ul>
-        <ul class="m-side-navigation__menuItems">
+        <ul class="m-side-navigation__menuItems logout" @click="logoutUser">
           <li class="m-side-navigation__menuItem" role="none">
             <span role="menuitem" class="m-side-navigation__link">
-              <i class="a-icon boschicon-bosch-ic-login" title="Login"></i>
+              <i class="a-icon boschicon-bosch-ic-logout" title="Login"></i>
               <span class="m-side-navigation__label">Logout</span>
             </span>
           </li>
@@ -96,6 +96,9 @@ export default {
   methods: {
     changeStateSGI: function(){
       this.openSGI = !this.openSGI;
+    },
+    logoutUser: async function() {
+      await Logout()
     }
   },
   components: {
