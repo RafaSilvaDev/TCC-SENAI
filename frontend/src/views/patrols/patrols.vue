@@ -5,6 +5,12 @@
         <div class="box">
           <div class="table-header">
             <h4>Patrulheiros</h4>
+            <Button @click="() => {
+                         isDetailsVisible = true
+                        }" 
+                        mode="primary" label="Modal"/>
+
+            <Details v-model:visible="isDetailsVisible" />
           </div>
           <div class="container">
             <Modal
@@ -82,6 +88,7 @@ import Icon from "@/components/icon/Icon.vue";
 import Button from "@/components/button/Button.vue";
 import Modal from "@/components/modal/modal.vue";
 import Observation from "@/components/modal/observation.vue";
+import Details from "@/components/modal/details.vue";
 import ButtonPrime from "primevue/button";
 import axios from "axios";
 
@@ -92,6 +99,7 @@ export default {
       buttonPosition: [0, 0],
       isModalVisible: false,
       isObservationVisible: false,
+      isDetailsVisible: false,
       mounted: false,
       questionResponse: [],
       observationResponse: [],
@@ -123,8 +131,10 @@ export default {
   methods: {
     returnOptions: function(status){
         console.log("teste ", status)
+        this.isDetailsVisible = true; 
         this.isObservationVisible = false;
-        this.isModalVisible = true;         
+        this.isModalVisible = true; 
+
     },
     sendData: async function (){
       await axios
@@ -218,6 +228,7 @@ export default {
     ButtonPrime,
     Button,
     Observation,
+    Details,
   },
 
   setup: function() {
