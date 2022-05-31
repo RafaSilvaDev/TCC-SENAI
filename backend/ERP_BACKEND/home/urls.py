@@ -65,6 +65,9 @@ urlpatterns = [
     #  FILTERED DDS BY PRIMARY KEY
     path('dds/<int:id>', DDSApiView.as_view(), name="ddsFilter"),
 
+    # GET RANDOM DDS IN DB
+    path('randomdds/', RandomDDS.as_view(), name="randomDDS"),
+
     # GET ALL SSM RANDOM ORDER IN DB
     # path('ssmrandom/', SSMRandomOrderApiView.as_view(), name="ssmrandom"),
     # # GET FILTERED SSM RANDOM ORDER BY PRIMARY KEY

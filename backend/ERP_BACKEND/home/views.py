@@ -18,6 +18,7 @@ from drf_pdf.renderer import PDFRenderer
 from rest_framework import status
 # Create your views here.
 import datetime
+from django.utils.timezone import localtime, now
 
 from django.db.models import Q
 
@@ -1429,6 +1430,29 @@ class DDSApiView(APIView):
                 'user': request.user.username
             }
         return Response(self.response)
+
+class RandomDDS(APIView):
+    def get(self, request):
+        try:
+            self.dds = DDS.objects.filter(read=False).order_by('?')[0]
+            self.serializer = DDSSerializer(self.dds)
+            self.dds.read = True
+            self.dds.readDate = localtime(now()).date()
+            self.dds.save()
+            return Response(self.serializer.data)
+        except:
+            self.dds = DDS.objects.all()
+            for i in self.dds:
+                i.read = False
+                i.readDate = None
+                i.save()
+            self.response = {
+                    'msg': "No data was found with read status = False. All data was updated to False.",
+                    'status': 500,
+                    'url' : request.path,
+                    'user': request.user.username,
+                    'method': request.method,}
+            return Response(self.response)
 
 # class SSMRandomOrderApiView(APIView):
 #     """

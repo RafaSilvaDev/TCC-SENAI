@@ -1,3 +1,4 @@
+from tkinter import N
 from ERP_BACKEND.settings import POPPLER_PATH
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 from django.db import models
@@ -210,6 +211,8 @@ class DDS(models.Model):
     frontText = models.CharField(max_length=1000,default="", blank=True, null=True, help_text='Insert Front Text', verbose_name='Front Text' )
     backImg = models.ImageField(upload_to=changeImgName, default="", blank=True, null=True, help_text='Insert Front Image', verbose_name='Front Image')
     backText = models.CharField(max_length=1000,default="", blank=True, null=True, help_text='Insert Back Text', verbose_name='Back Text' )
+    read = models.BooleanField(default=False, blank=True)
+    readDate = models.DateField(default=None, null=True, blank=True)
     #fk_type = models.ForeignKey(SSMType, on_delete=models.CASCADE, blank=True, null=True, default="")
     
     def __str__(self) -> str:
