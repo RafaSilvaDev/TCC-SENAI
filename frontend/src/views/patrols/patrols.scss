@@ -18,6 +18,12 @@ $m-side-navigation--open-width: rem.convert(304px);
         padding: 2rem;
         max-height: 5rem;
         background-color: var(--background);
+
+        .btns_header{
+          #save{
+            margin-right: 1rem;
+          }
+        }
         
       }
 

@@ -5,11 +5,15 @@
         <div class="box">
           <div class="table-header">
             <h4>Patrulheiros</h4>
-            <Button @click="() => {
-                         isDetailsVisible = true
-                        }" 
-                        mode="primary" label="Modal"/>
+            <div class="btns_header">
+              <Button id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
+              <Button id="new" @click="() => {
+                          isDetailsVisible = true
+                          }" 
+                          mode="secondary" label="Nova semana" style="width:155px;"/>
 
+            </div>
+           
             <Details v-model:visible="isDetailsVisible" />
           </div>
           <div class="container">
@@ -76,7 +80,6 @@
         </div>
         
       </div>
-      <Button @click="sendData()" mode="primary" label="Save"/>
     </div>
   </component>
 </template>
