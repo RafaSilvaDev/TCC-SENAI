@@ -55,7 +55,7 @@
                 <div>
                   <div class="card-header">
                     <div class="header__left">
-                      <span>#{{ ddsToday.birth_year }}</span>
+                      <span>#{{ ddsToday.id }}</span>
                     </div>
                     <div class="header__right">
                       <Icon
@@ -71,22 +71,16 @@
                       <div
                         v-if="dateRead !== 'no'"
                         class="dot-status -on"
-                        :data-text="'Lido em ' + dateRead"
+                        :data-text="'Lido em ' + ddsToday.readDate"
                       ></div>
                     </div>
                   </div>
                   <div class="card-body">
                     <div :class="['content-body__front', [{ '-face': showFrontDDStoday }]]">
                       <div class="text">
-                        <h5 class="title">{{ title }}</h5>
+                        <h5 class="title">{{ ddsToday.title }}</h5>
                         <p>
-                          Lorem ipsum consectetur adipiscing elit. Phasellus eu dictum
-                          diam, eu hendrerit est. Etiam venenatis hendrerit nunc, eget
-                          accumsan libero congue quis. Nulla facilisi. Maecenas nec
-                          tellus tellus. Donec luctus in lacus ut vehicula. Quisque
-                          aliquam hendrerit condimentum. Aliquam placerat risus ipsum,
-                          vitae porttitor turpis ornare id. Sed arcu lectus, iaculis
-                          at purus id, posuere varius eros.
+                          {{ddsToday.frontText}}
                         </p>
                       </div>
                     </div>
@@ -94,7 +88,7 @@
                       <div class="text">
                         <h5 class="title">BACK</h5>
                         <p>
-                          {{}}
+                          {{ddsToday.backText}}
                         </p>
                       </div>
                     </div>
@@ -239,11 +233,11 @@ export default {
     },
     getDDStoday: async function () {
       await axios
-        .get('https://swapi.dev/api/people/1/')
+        .get(this.apiURL + '/randomdds/')
         .then((response) => {
           let data = response.data;
           this.ddsToday = data;
-
+          console.log(this.ddsToday);
           this.showDDStoday = true;
         })
         .catch((err) => {
