@@ -5,8 +5,11 @@
         <div class="box">
           <div class="table-header">
             <h4>Patrulheiros</h4>
-            <div class="btns_header">
-              <Button id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
+            <div class="btns_header" v-if="mounted">
+              <Button v-if="!sendLoad" id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
+              <div v-else class="loading">
+                <img  src="@/assets/img/loading.gif" alt="" style="width: 30px">
+              </div>
               <Button id="new" @click="() => {
                           isDetailsVisible = true
                           }" 
@@ -22,15 +25,16 @@
               @modalClicked="modalSelected($event)"
             />
             <Observation v-model:visible="isObservationVisible"
+                v-if="hasData"
                 v-model:data="this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answer"
                 @modalClicked="obsSelected($event)" @verificationClicked="(status)=>{
                     if(status)
                       returnOptions(status)
                 }"
-                v-if="observationResponse.length > 0"
+                
             />
 
-            <table class="table-patrols" v-if="mounted">
+            <table class="table-patrols" v-if="hasData">
               <tbody class="table-content">
                 <tr id="calendar" >
                   <th rowspan="2" id="header-question" style="padding: 5px">Questões</th>
@@ -76,6 +80,12 @@
                 </tr>
               </tbody>
             </table>
+            <div class="laoding-area" v-else-if="isLoading">
+              <img  src="@/assets/img/loading.gif" alt="">
+            </div>
+            <div class="laoding-area nodata" v-else>
+              <p>Não Há dados cadastrados</p>
+            </div>
           </div>
         </div>
         
@@ -107,6 +117,9 @@ export default {
       questionResponse: [],
       observationResponse: [],
       patrolData: {},
+      hasData: false,
+      isLoading: false,
+      sendLoad: false,
       days: ["Segunda", "Terça", "Quarta","Quinta", "Sexta", "Sábado", "Domingo"],
       questions:[],
       answers:[],
@@ -140,19 +153,23 @@ export default {
 
     },
     sendData: async function (){
+      this.sendLoad = true
       await axios
       
       .put(this.apiURL+"/patrolweek/", this.patrolData)
       .then((response) => {
         this.patrolData = response.data;
         // this.questions = this.results.fk_answers
-        console.log(this.patrolData);
+        // console.log(this.patrolData);
+        console.log(12212312)
+        this.sendLoad = false
         document.location.reload(true);
 
       })
       .catch((err) => {
         console.log(err);
       });
+      this.sendLoad = false
     },
     modalSelected: function (status) {
       if(status === false)
@@ -200,16 +217,24 @@ export default {
     },
 
     getPatrolWeek: async function (){
+      this.isLoading = true
       await axios
       .get(this.apiURL+"/patrolweek/")
       .then((response) => {
         this.patrolData = response.data;
         // this.questions = this.results.fk_answers
+        this.mounted = true
         console.log(this.patrolData);
+        if(this.patrolData.data !== "no data"){
+          this.hasData = true
+          console.log(1)
+        }
       })
       .catch((err) => {
         console.log(err);
       });
+      this.isLoading = false
+      
     },
   },
   created(){
@@ -219,7 +244,7 @@ export default {
     for (let row = 0; row < 16; row++) {}
     
     this.fillResponseQuestion();
-    this.mounted = true;
+    
     // console.log(this.questionResponse);
   },
   computed: mapState({

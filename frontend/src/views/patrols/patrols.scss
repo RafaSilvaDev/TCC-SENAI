@@ -18,8 +18,18 @@ $m-side-navigation--open-width: rem.convert(304px);
         padding: 2rem;
         max-height: 5rem;
         background-color: var(--background);
-
+        flex-direction: row;
         .btns_header{
+          display: flex;
+          flex-direction: row;
+          height: 100%;
+          background-color: none;
+          .loading{
+            width: 155px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
           #save{
             margin-right: 1rem;
           }
@@ -119,5 +129,15 @@ $m-side-navigation--open-width: rem.convert(304px);
         
       }
     }
+  }
+}
+
+.laoding-area{
+  width: 100%;
+  background: none;
+  display: flex;
+  justify-content: center;
+  img{
+    width: 30px;
   }
 }

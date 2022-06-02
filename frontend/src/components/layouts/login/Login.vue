@@ -28,7 +28,7 @@
             <div v-else class="load_alert">
               <img class="load_alert_img"  src="@/assets/img/loading.gif" alt="">
             </div>
-            <p class="erro_alert" v-if="$route.params.error">Usuário ou senha Inváidos</p>
+            <p class="erro_alert" v-if="$route.params.error">Usuário ou senha Inválidos</p>
           </form>
 
         </div>
@@ -51,7 +51,7 @@ export default {
         showPwd: false,
         login:{
           username: 'admin',
-          password: 'admin'
+          password: 'admin1234567'
         },
         error: true,
         inLoading: false
