@@ -7,7 +7,7 @@
             <h4>Patrulheiros</h4>
             <div class="btns_header" v-if="mounted">
               <Button v-if="!sendLoad" id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
-              <div v-else>
+              <div v-else class="loading">
                 <img  src="@/assets/img/loading.gif" alt="" style="width: 30px">
               </div>
               <Button id="new" @click="() => {
@@ -160,7 +160,9 @@ export default {
       .then((response) => {
         this.patrolData = response.data;
         // this.questions = this.results.fk_answers
-        console.log(this.patrolData);
+        // console.log(this.patrolData);
+        console.log(12212312)
+        this.sendLoad = false
         document.location.reload(true);
 
       })

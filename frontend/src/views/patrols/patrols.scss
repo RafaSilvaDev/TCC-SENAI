@@ -20,6 +20,16 @@ $m-side-navigation--open-width: rem.convert(304px);
         background-color: var(--background);
         flex-direction: row;
         .btns_header{
+          display: flex;
+          flex-direction: row;
+          height: 100%;
+          background-color: none;
+          .loading{
+            width: 155px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
           #save{
             margin-right: 1rem;
           }

@@ -51,7 +51,7 @@ export default {
         showPwd: false,
         login:{
           username: 'admin',
-          password: 'admin1234567 '
+          password: 'admin1234567'
         },
         error: true,
         inLoading: false
