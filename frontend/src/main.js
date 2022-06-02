@@ -18,5 +18,5 @@ let app = createApp(App)
   app.use(store)
   app.use(router)
   app.use(PrimeVue)
-  app.config.globalProperties.apiURL = 'http://127.0.0.1:8000/apiv1'
+  app.config.globalProperties.apiURL = 'https://etsweberp.azurewebsites.net/apiv1'
   app.mount('#app');

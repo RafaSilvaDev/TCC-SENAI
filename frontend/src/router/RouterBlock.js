@@ -2,7 +2,7 @@ import axios from 'axios'
 import router from './index';
 import store from '../store';
 
-const baseURL = "http://localhost:8000/"
+const baseURL = "https://etsweberp.azurewebsites.net/"
 
 export async function setLogin(login){
     await axios.post(baseURL + 'auth/jwt/create/',login).then(response => (
