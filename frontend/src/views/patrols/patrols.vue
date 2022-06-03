@@ -6,11 +6,11 @@
           <div class="table-header">
             <h4>Patrulheiros</h4>
             <div class="btns_header" v-if="mounted">
-              <Button v-if="!sendLoad" id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
-              <div v-else class="loading">
+              <Button v-if="!sendLoad && hasData" id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
+              <div v-else-if="hasData" class="loading">
                 <img  src="@/assets/img/loading.gif" alt="" style="width: 30px">
               </div>
-              <Button id="new" @click="() => {
+              <Button v-if="!true" id="new" @click="() => {
                           isDetailsVisible = true
                           }" 
                           mode="secondary" label="Nova semana" style="width:155px;"/>
@@ -123,6 +123,7 @@ export default {
       days: ["Segunda", "Terça", "Quarta","Quinta", "Sexta", "Sábado", "Domingo"],
       questions:[],
       answers:[],
+      patrols: [],
       questions2: [
         "O piso está em boas condições?",
         "Berços, Pallets, Caixas estão respeitando os limites dos corredores e estão organizados em seus lugares conforme demarcação?",
@@ -224,11 +225,12 @@ export default {
         this.patrolData = response.data;
         // this.questions = this.results.fk_answers
         this.mounted = true
-        console.log(this.patrolData);
+        console.log();
         if(this.patrolData.data !== "no data"){
-          this.hasData = true
-          console.log(1)
+          if(this.patrolData.fk_patrol.username === localStorage.user)
+            this.hasData = true
         }
+        console.log(this)
       })
       .catch((err) => {
         console.log(err);
