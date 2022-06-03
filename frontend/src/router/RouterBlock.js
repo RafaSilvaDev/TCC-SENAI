@@ -9,6 +9,7 @@ export async function setLogin(login){
         // store.commit('setToken', [response.data.access, response.data.refresh]),
         localStorage.aToken = response.data.access,
         localStorage.rToken = response.data.refresh,
+        localStorage.user = login.username,
         router.push('/home')
     )).catch(error => {
         router.push({ name: 'Login', params: { error: true }})
