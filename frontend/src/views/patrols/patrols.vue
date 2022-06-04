@@ -4,20 +4,20 @@
       <div class="app">
         <div class="box">
           <div class="table-header">
-            <h4>Patrulheiros</h4>
+            <h4 v-if="mounted">Patrulheiros -  Responsável da semana:  {{patrolData.fk_patrol.username}}</h4>
             <div class="btns_header" v-if="mounted">
-              <Button v-if="!sendLoad && hasData" id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
-              <div v-else-if="hasData" class="loading">
+              <Button v-if="!sendLoad && isCurrentPatrol" id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
+              <div v-else-if="hasData && sendLoad" class="loading">
                 <img  src="@/assets/img/loading.gif" alt="" style="width: 30px">
               </div>
-              <Button v-if="!true" id="new" @click="() => {
-                          isDetailsVisible = true
+              <Button v-if="isSuper" id="new" @click="() => {
+                          showNewCard = true
                           }" 
                           mode="secondary" label="Nova semana" style="width:155px;"/>
 
             </div>
            
-            <Details v-model:visible="isDetailsVisible" />
+            <Details v-model:visible="showNewCard" />
           </div>
           <div class="container">
             <Modal
@@ -84,7 +84,7 @@
               <img  src="@/assets/img/loading.gif" alt="">
             </div>
             <div class="laoding-area nodata" v-else>
-              <p>Não Há dados cadastrados</p>
+              <p>Não Há dados cadastrados.</p>
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ import Observation from "@/components/modal/observation.vue";
 import Details from "@/components/modal/details.vue";
 import ButtonPrime from "primevue/button";
 import axios from "axios";
-
+// import {checkSuper} from '@/router/RouterBlock';
 
 export default {
   data() {
@@ -119,6 +119,9 @@ export default {
       patrolData: {},
       hasData: false,
       isLoading: false,
+      isSuper: false,
+      showNewCard: false,
+      isCurrentPatrol: false,
       sendLoad: false,
       days: ["Segunda", "Terça", "Quarta","Quinta", "Sexta", "Sábado", "Domingo"],
       questions:[],
@@ -227,8 +230,9 @@ export default {
         this.mounted = true
         console.log();
         if(this.patrolData.data !== "no data"){
+          this.hasData = true
           if(this.patrolData.fk_patrol.username === localStorage.user)
-            this.hasData = true
+            this.isCurrentPatrol = true
         }
         console.log(this)
       })
@@ -238,15 +242,30 @@ export default {
       this.isLoading = false
       
     },
+    checkIFSuper: async function(user){
+      await axios.get(this.apiURL + '/checkuser/' + user).then(response =>{
+        console.log(response.data.data)
+        this.isSuper = response.data.data
+      })
+    },
+    getPatrols: async function(){
+      await axios.get(this.apiURL + '/simpleusers/').then(response =>{
+        console.log(response.data.results)
+        this.patrols = response.data.results
+
+      })
+    }
   },
   created(){
     this.getPatrolWeek()
+    this.getPatrols()
   },
   mounted() {
     for (let row = 0; row < 16; row++) {}
     
-    this.fillResponseQuestion();
-    
+    this.fillResponseQuestion(); 
+    this.checkIFSuper(localStorage.user)
+
     // console.log(this.questionResponse);
   },
   computed: mapState({

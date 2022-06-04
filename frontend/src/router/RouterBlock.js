@@ -5,12 +5,20 @@ import store from '../store';
 const baseURL = "https://etsweberp.azurewebsites.net/"
 
 
+// export async function checkSuper(user){
+//     await axios.get(baseURL + 'apiv1/checkuser/' + user).then(response =>{
+//         console.log(response.data.data)
+//         localStorage.super = response.data.data
+//     })
+// }
+
 export async function setLogin(login){
-    await axios.post(baseURL + 'auth/jwt/create/',login).then(response => (
+    await axios.post(baseURL + 'auth/jwt/create/',login).then(async (response) => (
         // store.commit('setToken', [response.data.access, response.data.refresh]),
         localStorage.aToken = response.data.access,
         localStorage.rToken = response.data.refresh,
         localStorage.user = login.username,
+        // await checkSuper(login.username),
         
         router.push('/home')
     )).catch(error => {
@@ -34,5 +42,6 @@ export async function Logout(){
     localStorage.removeItem('rToken')
     localStorage.removeItem('user')
     localStorage.removeItem('rToken')
+    localStorage.removeItem('super')
     router.go("Login")
 }

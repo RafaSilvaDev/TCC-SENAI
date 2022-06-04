@@ -10,7 +10,9 @@
     </div>
     
     <template #footer>
-      <Button id="save" icon="pi pi-save" @click="()=>{}"/>
+      <Button id="save" icon="pi pi-save" @click="()=>{
+          
+        }"/>
     </template>
   </Dialog>
 </template>
