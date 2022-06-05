@@ -1,11 +1,15 @@
 <template>
   <component :is="layout">
+    
     <div :class="['patrols', { '-side-open': sideOpen }]">
       <div class="app">
         <div class="box">
           <div class="table-header">
-            <h4 v-if="mounted">Patrulheiros -  Responsável da semana:  {{patrolData.fk_patrol.username}}</h4>
+            <h4>Patrulheiros <span v-if="hasData"> - Responsável da semana: {{patrolData.fk_patrol.username}}</span></h4>
             <div class="btns_header" v-if="mounted">
+              <select v-if="!sendLoad" @change="getNewWeek" v-model="currentWeekId" name="" id="">
+                <option v-for="opt in allWeeks" :key="opt[0]" :value="opt[0]">{{opt[1]}}</option>
+              </select>
               <Button v-if="!sendLoad && isCurrentPatrol" id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
               <div v-else-if="hasData && sendLoad" class="loading">
                 <img  src="@/assets/img/loading.gif" alt="" style="width: 30px">
@@ -17,7 +21,7 @@
 
             </div>
            
-            <Details v-model:visible="showNewCard" />
+            <Details v-model:visible="showNewCard"  />
           </div>
           <div class="container">
             <Modal
@@ -114,12 +118,15 @@ export default {
       isObservationVisible: false,
       isDetailsVisible: false,
       mounted: false,
+      currentWeekId: null,
       questionResponse: [],
       observationResponse: [],
       patrolData: {},
       hasData: false,
       isLoading: false,
       isSuper: false,
+      entireLoad: false,
+      selectLoad: false,
       showNewCard: false,
       isCurrentPatrol: false,
       sendLoad: false,
@@ -127,6 +134,7 @@ export default {
       questions:[],
       answers:[],
       patrols: [],
+      allWeeks: [],
       questions2: [
         "O piso está em boas condições?",
         "Berços, Pallets, Caixas estão respeitando os limites dos corredores e estão organizados em seus lugares conforme demarcação?",
@@ -211,7 +219,7 @@ export default {
     },
 
     showModal() {
-      if(!this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool && this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool !== null)   
+      if(!this.patrolData.fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool && this.patrolData  .fk_days[this.buttonPosition[0]].fk_answers[this.buttonPosition[1]].answerBool !== null)   
       this.isObservationVisible = true  
       else
       this.isModalVisible = true;
@@ -228,16 +236,16 @@ export default {
         this.patrolData = response.data;
         // this.questions = this.results.fk_answers
         this.mounted = true
-        console.log();
         if(this.patrolData.data !== "no data"){
           this.hasData = true
           if(this.patrolData.fk_patrol.username === localStorage.user)
             this.isCurrentPatrol = true
         }
-        console.log(this)
+        
       })
       .catch((err) => {
         console.log(err);
+        this.mounted = true
       });
       this.isLoading = false
       
@@ -254,11 +262,33 @@ export default {
         this.patrols = response.data.results
 
       })
+    },
+    getWeeks: async function(){
+      console.log(38912382)
+      // http://127.0.0.1:8000/apiv1/patrolweek?all
+      await axios.get('http://127.0.0.1:8000/apiv1/patrolweek?all').then(response =>{
+        this.allWeeks = response.data
+        console.log(this.allWeeks)
+         console.log(38912382)
+      })
+    },
+    getNewWeek: async function(){
+      console.log(this.currentWeekId)
+      
+      this.hasData = true
+      this.sendLoad = true
+      await axios.get('http://127.0.0.1:8000/apiv1/patrolweek/'+ this.currentWeekId).then(response =>{
+        this.patrolData = response.data
+        
+        this.isCurrentPatrol = false
+      })
+      this.sendLoad = false
     }
   },
   created(){
     this.getPatrolWeek()
-    this.getPatrols()
+    this.getWeeks()
+    // this.getPatrols()
   },
   mounted() {
     for (let row = 0; row < 16; row++) {}

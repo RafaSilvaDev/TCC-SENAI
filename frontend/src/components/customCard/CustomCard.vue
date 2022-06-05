@@ -95,6 +95,7 @@ export default {
         Icon,
         Box,
     },
+
 }
 </script>
 
