@@ -1,8 +1,8 @@
 .DS_Store
-node_modules
+frontend/node_modules
 /dist
 
-.venv
+backend/.venv
 
 
 # local env files

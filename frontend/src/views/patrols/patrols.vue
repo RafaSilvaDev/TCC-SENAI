@@ -7,17 +7,17 @@
           <div class="table-header">
             <h4>Patrulheiros <span v-if="hasData"> - Responsável da semana: {{patrolData.fk_patrol.username}}</span></h4>
             <div class="btns_header" v-if="mounted">
-              <select v-if="!sendLoad" @change="getNewWeek" v-model="currentWeekId" name="" id="">
+              <select v-if="!sendLoad" @change="getNewWeek" v-model="currentWeekId" name="" id="days">
                 <option v-for="opt in allWeeks" :key="opt[0]" :value="opt[0]">{{opt[1]}}</option>
               </select>
-              <Button v-if="!sendLoad && isCurrentPatrol" id="save" @click="sendData()" mode="primary" label="Save" style="width:155px;"/>
+              <Button v-if="!sendLoad && isCurrentPatrol" id="save" @click="sendData()" mode="secondary" icon="save"/>
               <div v-else-if="hasData && sendLoad" class="loading">
                 <img  src="@/assets/img/loading.gif" alt="" style="width: 30px">
               </div>
               <Button v-if="isSuper" id="new" @click="() => {
                           showNewCard = true
                           }" 
-                          mode="secondary" label="Nova semana" style="width:155px;"/>
+                          mode="primary" icon="add"/>
 
             </div>
            
@@ -266,7 +266,7 @@ export default {
     getWeeks: async function(){
       console.log(38912382)
       // http://127.0.0.1:8000/apiv1/patrolweek?all
-      await axios.get('http://127.0.0.1:8000/apiv1/patrolweek?all').then(response =>{
+      await axios.get('https://etsweberp.azurewebsites.net/apiv1/patrolweek?all').then(response =>{
         this.allWeeks = response.data
         console.log(this.allWeeks)
          console.log(38912382)
@@ -277,7 +277,7 @@ export default {
       
       this.hasData = true
       this.sendLoad = true
-      await axios.get('http://127.0.0.1:8000/apiv1/patrolweek/'+ this.currentWeekId).then(response =>{
+      await axios.get('https://etsweberp.azurewebsites.net/apiv1/patrolweek/'+ this.currentWeekId).then(response =>{
         this.patrolData = response.data
         
         this.isCurrentPatrol = false

@@ -73,6 +73,7 @@ export default {
           }).catch(error => console.log(error))
         }
         this.sended=false
+        document.location.reload(true);
       }else{
         this.fillAll = true
       }
