@@ -59,7 +59,8 @@
                   v-for="(q, index) in patrolData.fk_days[0].fk_answers"
                   :key="q"
                 >
-                  <td class="side-header" id="question" style="padding: 5px; position: sticky; left:0; z-index: 2; background: var(--background)">
+                  <td class="side-header" id="question" style="padding: 5px; position: sticky; left:0; z-index: 20; background: var(--background); -webkit-box-shadow: 10px 0px 24px -14px #000000; 
+box-shadow: 10px 0px 24px -14px #000000;">
                     {{index + 1}} - {{ q.fk_patrolquest.question }}
                     <!-- index + " - " + -->
                   </td>
