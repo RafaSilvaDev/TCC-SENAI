@@ -130,6 +130,7 @@
 
                 width: 100%;
                 min-height: 100%;
+                
         
                 .event-card {
                     color: #000;
@@ -141,15 +142,39 @@
                         align-items: center;
                         justify-content: space-between;
                         margin-bottom: .5rem;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        color: rgb(46, 46, 46);
+                        
+
+                        p {
+                            font-weight: bold;
+                            display: block;
+                        }
 
                         .time-event {
                             font-size: 0.8rem;
                         }
+
+                        &.display-block-event {
+                            display: block;
+                        }
                     }
 
                     .event-card-body {
-                        p {
+                        display: grid;
+
+                        .display-block-event {
+                            display: block;
+                        }
+                        
+                        span {
                             font-size: 0.9rem;
+                            display: inline-flex;
+
+                            &:last-child {
+                                margin-top: .3rem;
+                            }
                         }
                     } 
                 }
@@ -169,15 +194,34 @@
         
     }
 
+    
+
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1100px) {
+
+    .agenda .calendar-container .classes .main .event-card {
+        .event-card-header,
+        .event-card-body{
+            white-space: normal;
+        }
+
+        .event-card-header {
+            display: block;
+        }
+        
+
+    }
+
+}
+
+@media (max-width: 1720px) {
 
     .agenda .calendar-container .classes {
         overflow-x: scroll;
 
         .classes-content {
-            min-width: 720px;
+            min-width: 1720px;
         }
     }
 

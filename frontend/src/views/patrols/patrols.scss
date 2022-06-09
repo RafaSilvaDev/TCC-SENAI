@@ -165,7 +165,7 @@ $m-side-navigation--open-width: rem.convert(304px);
   }
 }
 
-@media (max-width: 930px){
+@media (max-width: 560px){
   .patrols {
   
     .app {
@@ -173,24 +173,6 @@ $m-side-navigation--open-width: rem.convert(304px);
       .box {
   
         .table-header {
-          max-height:10rem;
-          
-        }
-
-      }
-    }
-  }
-}
-
-@media (max-width: 460px){
-  .patrols {
-  
-    .app {
-  
-      .box {
-  
-        .table-header {
-          max-height:15rem;
 
           .btns_header{
             #days-week-saves{
@@ -223,7 +205,6 @@ $m-side-navigation--open-width: rem.convert(304px);
       .box {
   
         .table-header {
-          max-height:15rem;
           
           &.resp-person h5{
             font-size: 1rem;

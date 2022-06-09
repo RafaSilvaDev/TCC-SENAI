@@ -136,9 +136,6 @@ export default {
       showDDStoday: false,
       ddsToday: '',
       showFrontDDStoday: true
-
-      // url da api
-      // defaultURL: "http://127.0.0.1:8000/apiv1/",
     };
   },
   computed: {

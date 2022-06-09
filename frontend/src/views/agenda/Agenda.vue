@@ -32,7 +32,7 @@
         <ul class="classes">
           <div class="classes-content">
             <li class="item">
-              <div></div>
+              <div class="deixa-essa-div-aqui"></div>
               <ul class="hours">
                 <li class="h-time" v-for="idx in 10" :key="idx">
                   {{ idx + 7 }}h
@@ -56,8 +56,8 @@
                   )};background-color: ${generateColor()};`"
                   :key="event.name"
                 >
-                  <div class="event-card-header">
-                    {{ event.name }}
+                  <div :class="{'event-card-header': true, 'display-block-event': isDisplayBlock(event.startTime.substring(0, 5), event.endTime.substring(0, 5))}">
+                    <p>{{event.name}}</p>
                     <div class="time-event">
                       {{ event.startTime.substring(0, 5) }}
                       -
@@ -66,12 +66,12 @@
                   </div>
 
                   <div class="event-card-body">
-                    <p>
-                      Responsável: <span>{{ event.event_responsible }}</span>
-                    </p>
-                    <p>
-                      Local: <span>{{ event.location.localName }}</span>
-                    </p>
+                    <span :class="{'display-block-event': isDisplayBlock(event.startTime.substring(0, 5), event.endTime.substring(0, 5))}">
+                     <p>Responsável:</p> <p>{{ event.event_responsible }}</p>
+                    </span>
+                    <span>
+                      <p>Local:</p> <p>{{ event.location.localName }}</p>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -116,6 +116,7 @@ export default {
 
           const eventsData = respEvents.data;
           this.events = eventsData.results;
+          console.log(this.events)
         })
       )
       .catch((errors) => {
@@ -159,16 +160,23 @@ export default {
       this.currentDate = str;
 
     },
+    randomNumber: function(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    },
     generateColor: function () {
-      const letters = "0123456789ABCDEF";
-      let color = "#";
+      let r = this.randomNumber(50, 255)
+      let g = this.randomNumber(70, 255)
+      let b = this.randomNumber(70, 255)
 
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
+      let color = `rgba(${r}, ${g}, ${b}, 0.7)`
 
       return color;
     },
+    isDisplayBlock: function(start='00', end='01') {
+      const startTime = parseInt(start.substring(0, 3))
+      const endTime = parseInt(end.substring(0, 3))
+      return (endTime-startTime > 0) && (endTime-startTime <= 2)
+    }
   },
   computed: {
     gridRows: function () {
@@ -190,6 +198,7 @@ export default {
       const dayName = date.toLocaleString("en-US", { weekday: "long" });
       return dayName;
     },
+
   },
   components: {
     Button,
