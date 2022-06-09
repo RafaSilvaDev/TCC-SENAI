@@ -32,7 +32,7 @@
               :havePopUp="true"
               :frontImg="x.frontImg"
               :backImg="x.backImg"
-              :dateRead="x.ReadDate"
+              :dateRead="x.readDate"
             />
             <p v-if="resultSearch===false">Nenhum dado encontrado.</p>
           </div>

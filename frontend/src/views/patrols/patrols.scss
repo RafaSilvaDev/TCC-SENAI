@@ -155,6 +155,13 @@ $m-side-navigation--open-width: rem.convert(304px);
   }
 }
 
+.activity-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: rem.convert(16px);
+}
+
 .laoding-area{
   width: 100%;
   background: none;

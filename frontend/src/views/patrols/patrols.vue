@@ -97,8 +97,9 @@ box-shadow: 10px 0px 24px -14px #000000;">
                 </tr>
               </tbody>
             </table>
-            <div class="laoding-area" v-else-if="isLoading">
-              <img  src="@/assets/img/loading.gif" alt="">
+
+            <div class="activity-box" v-else-if="isLoading">
+              <ActivityIndicator size="small" />
             </div>
             <div class="laoding-area nodata" v-else>
               <p>Não Há dados cadastrados.</p>
@@ -120,6 +121,8 @@ import Modal from "@/components/modal/modal.vue";
 import Observation from "@/components/modal/observation.vue";
 import Details from "@/components/modal/details.vue";
 import ButtonPrime from "primevue/button";
+import ActivityIndicator from "@/components/activityIndicator/ActivityIndicator.vue";
+
 import axios from "axios";
 // import {checkSuper} from '@/router/RouterBlock';
 
@@ -321,6 +324,7 @@ export default {
     Button,
     Observation,
     Details,
+    ActivityIndicator
   },
 
   setup: function() {
