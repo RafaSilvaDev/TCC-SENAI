@@ -14,11 +14,11 @@ $m-side-navigation--open-width: rem.convert(304px);
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 5px;
-        max-height: 7rem;
+        padding: 2rem;
+        max-height: 5rem;
         background-color: var(--background);
         flex-direction: row;
-        flex-wrap: wrap;
+
         .btns_header{
           display: flex;
           flex-direction: row;
@@ -31,7 +31,7 @@ $m-side-navigation--open-width: rem.convert(304px);
             justify-content: center;
             align-items: center;
           }
-          #days{
+          #days-week-saves{
             margin-right: 1rem;
             max-width:150px;
             outline: none;
@@ -46,6 +46,16 @@ $m-side-navigation--open-width: rem.convert(304px);
           #new{
             width:50px;
           }
+        }
+
+        &.resp-person {
+          margin-top: 1rem;
+
+          max-height: 4rem;
+        }
+
+        &.week-save {
+          display: none;
         }
         
       }
@@ -171,6 +181,40 @@ $m-side-navigation--open-width: rem.convert(304px);
     }
   }
 }
+
+@media (max-width: 460px){
+  .patrols {
+  
+    .app {
+  
+      .box {
+  
+        .table-header {
+          max-height:15rem;
+
+          .btns_header{
+            #days-week-saves{
+              display: none;
+            }
+          }
+          
+          &.resp-person h5{
+            font-size: 1rem;
+          }
+
+          &.week-save {
+            display: flex;
+            justify-content: start;
+            gap: 1rem;
+          }
+        }
+        
+
+      }
+    }
+  }
+}
+
 @media (max-width: 419px){
   .patrols {
   
@@ -181,6 +225,9 @@ $m-side-navigation--open-width: rem.convert(304px);
         .table-header {
           max-height:15rem;
           
+          &.resp-person h5{
+            font-size: 1rem;
+          }
         }
 
       }

@@ -5,9 +5,9 @@
       <div class="app">
         <div class="box">
           <div class="table-header">
-            <h4>Patrulheiros <span v-if="hasData"> - Responsável da semana: {{patrolData.fk_patrol.username}}</span></h4>
+            <h4>Patrulheiros</h4>
             <div class="btns_header" v-if="mounted">
-              <select v-if="!sendLoad" @change="getNewWeek" v-model="currentWeekId" name="" id="days">
+              <select v-if="!sendLoad" @change="getNewWeek" v-model="currentWeekId" name="" id="days-week-saves">
                 <option v-for="opt in allWeeks" :key="opt[0]" :value="opt[0]">{{opt[1]}}</option>
               </select>
               <Button v-if="!sendLoad && isCurrentPatrol" id="save" @click="sendData()" mode="secondary" icon="save"/>
@@ -23,6 +23,18 @@
            
             <Details v-model:visible="showNewCard"  />
           </div>
+
+          <div class="table-header resp-person" v-if="hasData">
+            <h5><span>Responsável da semana: {{patrolData.fk_patrol.username}}</span></h5>
+          </div>
+          
+          <div class="table-header resp-person week-save" v-if="hasData">
+            <h5><span>Semanas salvas: </span></h5>
+            <select v-if="!sendLoad" @change="getNewWeek" v-model="currentWeekId" name="" id="days">
+                <option v-for="opt in allWeeks" :key="opt[0]" :value="opt[0]">{{opt[1]}}</option>
+            </select>
+          </div>
+
           <div class="container">
             <Modal
               v-model="isModalVisible"
@@ -59,7 +71,7 @@
                   v-for="(q, index) in patrolData.fk_days[0].fk_answers"
                   :key="q"
                 >
-                  <td class="side-header" id="question" style="padding: 5px; position: sticky; left:0; z-index: 20; background: var(--background); -webkit-box-shadow: 10px 0px 24px -14px #000000; 
+                  <td class="side-header" id="question" style="padding: 5px; position: sticky; left:0; z-index: 2; background: var(--background); -webkit-box-shadow: 10px 0px 24px -14px #000000; 
 box-shadow: 10px 0px 24px -14px #000000;">
                     {{index + 1}} - {{ q.fk_patrolquest.question }}
                     <!-- index + " - " + -->

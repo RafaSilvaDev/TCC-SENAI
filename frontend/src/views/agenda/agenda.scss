@@ -21,16 +21,6 @@
             max-height: rem.convert(80px);
             background-color: var(--background);
 
-            .day {
-                span {
-                    font-size: 1.1rem;
-
-                    &:first-child {
-                        margin-right: .5rem;
-                    }
-                }
-            }
-
             .buttons-adv {
                 display: flex;
                 gap: 0.5rem;
@@ -112,7 +102,6 @@
                 }
             }
 
-
             .hours {
                 list-style: none;
                 display: grid;
@@ -182,5 +171,33 @@
 
 }
 
+@media (max-width: 720px) {
+
+    .agenda .calendar-container .classes {
+        overflow-x: scroll;
+
+        .classes-content {
+            min-width: 720px;
+        }
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .agenda .calendar-container .header {
+        padding: 2rem 1rem;
+        
+        .day .date {
+            display: block;
+            font-size: 1rem;
+        }
+
+        .buttons-adv {
+            gap: 0.1rem;
+        }
+    }
+
+}
 
  
