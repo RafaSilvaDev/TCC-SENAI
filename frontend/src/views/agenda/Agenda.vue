@@ -116,7 +116,7 @@ export default {
 
           const eventsData = respEvents.data;
           this.events = eventsData.results;
-          console.log(this.events)
+          
         })
       )
       .catch((errors) => {
@@ -148,7 +148,7 @@ export default {
       if (v) {
         date = new Date(this.currentDate);
       } else {
-        v = -1
+        v = 0
       }
 
       

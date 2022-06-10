@@ -82,6 +82,7 @@
                         <p>
                           {{ddsToday.frontText}}
                         </p>
+                        <img class="img-card" v-if="showFrontDDStoday" :src="ddsToday.frontImg" alt="">
                       </div>
                     </div>
                     <div :class="['content-body__back', [{ '-face': !showFrontDDStoday }]]">
@@ -90,6 +91,7 @@
                         <p>
                           {{ddsToday.backText}}
                         </p>
+                        <img class="img-card" v-if="!showFrontDDStoday" :src="ddsToday.backImg" alt="">
                       </div>
                     </div>
                   </div>
@@ -234,7 +236,7 @@ export default {
         .then((response) => {
           let data = response.data;
           this.ddsToday = data;
-          console.log(this.ddsToday);
+
           this.showDDStoday = true;
         })
         .catch((err) => {

@@ -53,7 +53,7 @@
                                     <h5 class="title">{{title}}</h5>
                                     <p v-if="textFront">{{textFront}}</p>
                                     <p v-else>Nenhum texto.</p>
-                                    <img class="img-card" v-if="frontImg" :src="`${this.apiURL}` + frontImg" alt="">
+                                    <img class="img-card" v-if="frontImg" :src="frontImg" alt="">
                                 </div>
 
                             </div>
@@ -61,7 +61,7 @@
                                 <div class="text">
                                     <h5 class="title">{{title}}</h5>
                                     <p>{{textBack}}</p>
-                                    <img class="img-card" v-if="backImg" :src="`${this.apiURL}` + backImg" alt="">
+                                    <img class="img-card" v-if="backImg" :src="backImg" alt="">
                                 </div>
 
                             </div>       

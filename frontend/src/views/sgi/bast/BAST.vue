@@ -77,7 +77,6 @@ export default {
         this.next = data.next;
         this.previous = data.previous;
         this.count = data.count;
-        console.log(data)
 
         this.dataReady = true;
         
